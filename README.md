@@ -6,7 +6,7 @@ WMPlayer features:
 * **Dynamic playlist** - create and edit your playlist on the fly,
 * **Full player control** - play, pause, stop, fast-forward/rewind, next/previous song, volume, autoplay, loop and more,
 * **Easy, dynamic docking system** - WMPlayer can be dynamically placed anywhere on page, just designate it's parent node,
-* **Simple UI** - WMPlayer goes with default 
+* **Simple UI** - WMPlayer goes with simple but functional and responsive customizable UI.
 * **Customizable appearence** - If you don't like default UI, you can easily change player's template with HTML,
 * **JQuery support** - player can be used with JQuery 1.7+, or pure JavaScript,
 * **Cross browser** - player is compatible with IE9+, Edge, Firefox, Chrome, Opera, and mobile browsers,
