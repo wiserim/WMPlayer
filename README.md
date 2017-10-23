@@ -168,11 +168,11 @@ $('#player').WMPlayer('template', template);
 ### Playlist pattern
 
 Playlist positions are generated based on pattern:
-```
-//pattern:
+```html
+<!--Pattern-->
 <div class="$status"><span>$index.</span><span>$title</span><span>$duration</span></div>
 
-//generated playlist:
+<!--generated playlist-->
 <div class="wmp-playlist-item wmp-current"><span>1.</span><span>Song 1</span><span>1:30</span></div>
 <div class="wmp-playlist-item"><span>2.</span><span>Song 1</span><span>1:30</span></div>
 <div class="wmp-playlist-item wmp-error"><span>3.</span><span>Song 1</span><span>1:30</span></div>
@@ -204,4 +204,80 @@ $('#player').WMPlayer('playlistPattern', 'New pattern');
 
 ### Controls
 
-Coming soon
+WMPlayer's interactive elements like play button, progress bar, playlist container, etc. are identified by assigned classes.
+
+**Example**
+```html
+<div class="wmplayer">
+    <!--play button-->
+    <button class="wmp-play">Play/Pause</button>
+    <!--stop button-->
+    <button class="wmp-stop">Stop</button>
+    <!--rewind/prevous track button-->
+    <button class="wmp-rewind">Rewind/Previous track</button>
+    <!--fast forward/next track button-->
+    <button class="wmp-fast-forward">Fast forward/Next track</button>
+    <!--Current track title-->
+    <p class="wmp-current-track-title"><!--Here goes current track title--></p>
+    <!--Current track time and duration-->
+    <p>
+        <span class="wmp-current-track-time"><!--Here goes current track time--></span>
+        <span class="wmp-current-track-duration"><!--Here goes current track duration--></span>
+    </p>
+    <div>
+        <!--progress bar-->
+        <div class="wmp-progress-bar"></div>
+    </div>
+    <!--playlist-->
+    <div class="wmp-playlist">
+        <!--Here goes playlist content-->
+    </div>
+</div>
+```
+
+|Control class|Default|Description|
+|---|---|---|
+|playButton|wmp-play|Play/pause button class.|
+|stopButton|wmp-stop|Stop button class.|
+|fastForwardButton|wmp-fast-forward|Fast forward/next track button class.|
+|rewindButton|wmp-rewind|Rewind/previous track button class.|
+|currentTrackTitle|wmp-current-track-title|Current track title container class.|
+|currentTrackTime|wmp-current-track-time|Current track time container class.|
+|currentTrackDuration|wmp-current-track-duration|Current track duration container class.|
+|progressBar|wmp-progress-bar|Current track's progress bar class.|
+|volumeBar|wmp-volume-bar|Volume bar class.|
+|muteButton|wmp-mute|Mute button class.|
+|playlist|wmp-playlist|Playlist container class|
+
+Player's control classes can be changed:
+
+**Plain JavaScript**
+```javascript
+var player = new WMPlayer({
+    controls: {
+        playButton: 'playButtonClass',
+        stopButton: 'stopButtonClass',
+        ...
+    }
+});
+//or
+player.controls({
+    playButton: 'playButtonClass',
+    stopButton: 'stopButtonClass',
+    ...
+});
+```
+**JQuery**
+```javascript
+$('#player').WMPlayer({
+    playButton: 'playButtonClass',
+    stopButton: 'stopButtonClass',
+    ...
+});
+//or
+$('#player').WMPlayer('controls', {
+    playButton: 'playButtonClass',
+    stopButton: 'stopButtonClass',
+    ...
+});
+```
