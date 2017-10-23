@@ -22,11 +22,12 @@ WMPlayer features:
 <div id="player">Your player goes here</div>
 ```
 
-**Plain JavaScript**
+**JavaScript**
 ```javascript
 var playersContainer = document.getElementById('player');
 var WMPlayer = new WMPlayer({
-  parent: playersContainer,
+  parent: playersContainer, //Set player's container
+  //Set playlist
   playlist: [
     {
       title: 'Song 1',
@@ -37,20 +38,22 @@ var WMPlayer = new WMPlayer({
       url: 'song2.mp3'
     }
   ],
-  start: true
+  start: true //Order player to start
 });
 ```
 
 **JQuery**
 ```javascript
+//Create player in all selected elements
 $('#player').WMPlayer({
+  //Set playlist
   playlist: [
     {
       title: 'Song',
       url: 'song.mp3'
     }
   ],
-  start: true
+  start: true //Order player to start
 });
 ```
 
@@ -74,7 +77,7 @@ $('#player').WMPlayer({
 ## Methods
 Methods can be called depending on how you initialized WMPlayer:
 
-**Plain JavaScript**
+**JavaScript**
 ```javascript
     var player = new WMPlayer();
     player.addTrack('Song', 'song.mp3');
@@ -89,7 +92,7 @@ Methods can be called depending on how you initialized WMPlayer:
 
 |Method|JQuery|Arguments|Description|
 |---|---|---|---|
-|WMPlayer(config)|$(element).WMPlayer([config])|config : object/node/JQuery selector|Initializes WMPlayer. If provided node/JQuery selector, sets players'parent. See [options](#options) for more information.|
+|WMPlayer([config])|$(element).WMPlayer([config])|config : object/node/JQuery selector|Initializes WMPlayer. If provided node/JQuery selector, sets players'parent. See [options](#options) for more information.|
 |start()|$(element).WMPlayer('start')|none|Run player.|
 |addTrack(url, [title = 'N/A'])|$(element).WMPlayer('addTrack', url, [title = 'N/A'])|url : string, title: string|Add audio track to playlist|
 |removeTrack([index])|$(element).WMPlayer('removeTrack', [index = last playlist element])|index : int|Removes position from playlist. Last playlist element is removed by default.|
@@ -115,7 +118,7 @@ WMPlayer's appearance can be easily customized with HTML and CSS.
 WMPlayer's template can be changed by:
 * setting player's parent content as template:
 
-**Plain JavaScript**
+**JavaScript**
 ```javascript
 var player = new WMPlayer({
     parent: document.getElementbyId('player'),
@@ -135,7 +138,7 @@ $('#player').WMPlayer('parent', $('#player2'), true);
 
 * setting template from string/node/JQuery selector:
 
-**Plain JavaScript**
+**JavaScript**
 ```javascript
 //Get template
 var template = '<div class="yourTemplate">Your template</div>';
@@ -185,7 +188,7 @@ where:
 
 Playlist pattern can be also changed:
 
-**Plain JavaScript**
+**JavaScript**
 ```javascript
 var player = new WMPlayer({
     playlistPattern: 'New pattern'
