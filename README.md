@@ -138,9 +138,9 @@ $('#player').WMPlayer('parent', $('#player2'), true);
 **Plain JavaScript**
 ```javascript
 //Get template
-var template = '<div class="yourTemplate">Your template</div>';'
+var template = '<div class="yourTemplate">Your template</div>';
 //or
-template = document.getElementbyId('template'),
+template = document.getElementbyId('template');
 
 //Set template
 var player = new WMPlayer({
@@ -153,9 +153,9 @@ player.template(template);
 **JQuery**
 ```javascript
 //Get template
-var template = '<div class="yourTemplate">Your template</div>';'
+var template = '<div class="yourTemplate">Your template</div>';
 //or
-template = $('#template'),
+template = $('#template');
 
 //Set template
 $('#player').WMPlayer({
