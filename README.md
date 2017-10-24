@@ -1,4 +1,4 @@
-# WMPlayer
+# WMPlayer (0.6.4)
 
 Customizable HTML5 web music player.
 
@@ -108,6 +108,7 @@ Methods can be called depending on how you initialized WMPlayer:
 |template(template)|$(element).WMPlayer('template', template)|template: string/node/JQuery selector|Set player's template. See [Custom templates](#custom-templates) for more informations.|
 |playlistPattern(pattern)|$(element).WMPlayer('playlistPattern', pattern)|pattern: string|Set playlist elements patterns. See [Custom templates](#custom-templates) for more informations.|
 |controls(controls)|$(element).WMPlayer('controls', controls)|controls: object| Set player's controls classes. See [Custom templates](#custom-templates) for more informations.|
+|destroy()|$(element).WMPlayer('destroy')|none|Destroy player.|
 
 ## Custom templates
 

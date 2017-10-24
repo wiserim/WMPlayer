@@ -1,8 +1,8 @@
 /*!
-* WMPlayer v0.6.3
+* WMPlayer v0.6.4
 * Copyright 2016-2017 Marcin Walczak
 *This file is part of WMPlayer which is released under MIT license.
-*See file LICENSE for full license details.
+*See LICENSE for full license details.
 */
 
 //WMPlayer event container

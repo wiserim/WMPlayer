@@ -1,8 +1,8 @@
 /*!
-* WMPlayer v0.6.3
+* WMPlayer v0.6.4
 * Copyright 2016-2017 Marcin Walczak
 *This file is part of WMPlayer which is released under MIT license.
-*See file LICENSE for full license details.
+*See LICENSE for full license details.
 */
 
 //jquery plugin
@@ -18,15 +18,29 @@ if (window.jQuery)
             if(instance) {
                 if(instance[options]) {
                     instance[options].apply(instance, after);
+                    //if called "parent" method, change storing element
+                    if(options == 'parent'){
+                        if(options.length > 0){
+                            var parent = after[0];
+                            if(parent.length > 0)
+                                parent = parent[0];
+                            $.removeData(this, 'wmplayer');
+                            if($.data(parent, 'wmplayer') !== undefined)
+                                $.data(parent, 'wmplayer').destroy();
+                            $.data(parent, 'wmplayer', instance);
+                        }
+                    }
                 }
                 else {
                     $.error('Method '+options+' does not exist on WMPlayer');
                 }
             }
-            else {
+            else if(typeof options !== 'string'){
                 //create the plugin
                 var config = options;
-                if(config.parent === undefined)
+                if(config === undefined)
+                    config = {parent: this};
+                else if(config.parent === undefined)
                     config.parent = this;
                 var wmp = new WMPlayer(config);
 
@@ -380,6 +394,13 @@ WMPlayer.prototype = {
     //set/toggle playlist display
     showPlaylist: function($show) {
         this.view.setShowPlaylist($show);
+    },
+
+    //destroy player
+    destroy: function() {
+        if(this.container.parentNode == this.parentNode)
+            this.parentNode.removeChild(this.container);
+        this.started = false;
     },
     
     //player start
