@@ -1,6 +1,6 @@
 /*!
-* WMPlayer v0.6.4
-* Copyright 2016-2017 Marcin Walczak
+* WMPlayer v0.7.1
+* Copyright 2016-2018 Marcin Walczak
 *This file is part of WMPlayer which is released under MIT license.
 *See LICENSE for full license details.
 */
@@ -51,6 +51,7 @@ if (window.jQuery)
         });
     };
 
+
 //WMPlayer controller
 function WMPlayer($config) {
     var self = this;
@@ -66,6 +67,30 @@ function WMPlayer($config) {
         this.container.classList.add('wmplayer');
     else
         this.container.className += ' wmplayer';
+
+    var playerBody = document.createElement('div');
+    if(playerBody.classList !== undefined)
+        playerBody.classList.add('wmplayer-body');
+    else
+        playerBody.className += ' wmplayer-body';
+    this.container.appendChild(playerBody);
+
+    //media container
+    var mediaContainer = document.createElement('div');
+    mediaContainer.className += 'wmplayer-media';
+    this.container.appendChild(mediaContainer);
+    var yt = document.createElement('div');
+    yt.className += 'wmplayer-yt';
+    mediaContainer.appendChild(yt);
+    mediaContainer.setAttribute('style', 'width: 0; height: 0; overflow: hidden; opacity: 0; visibility: hidden;');
+
+    //load You Tube iframe api
+    if(document.querySelectorAll('script[src="https://www.youtube.com/iframe_api"]').length == 0) {
+        var yt = document.createElement('script');
+        yt.src = 'https://www.youtube.com/iframe_api';
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(yt, firstScriptTag)
+    }
     
     //default config
     this.started = false;
@@ -107,7 +132,8 @@ function WMPlayer($config) {
                 });
             };
             if($config.showPlaylist !== undefined) this.showPlaylist($config.showPlaylist);
-            if($config.start === true) this.start();
+            if(!($config.start === false))
+                this.start();
        }
     }
 
@@ -197,10 +223,10 @@ function WMPlayer($config) {
     
     //play button click
     this.view.playButtonClicked.attach(function() {
-        if(self.model.audio.paused)
-            self.model.play();
-        else
+        if(self.model.playing)
             self.model.pause();
+        else
+            self.model.play();
     });
     
     //stop button click
@@ -314,19 +340,18 @@ WMPlayer.prototype = {
     
     //next track
     nextTrack: function() {
-        var playing = this.model.isPlaying() || this.model.audio.ended;
         var playlistEnded = this.model.nextTrack();
         if(playlistEnded && !(this.model.getLoop()))
             this.model.stop();
-        else if(playing)
+        else if(this.model.playing)
             this.model.play();
     },
     
     //previous track
     previousTrack: function() {
-        var playing = this.model.isPlaying();
+        //var playing = this.model.isPlaying();
         this.model.previousTrack();
-        if(playing)
+        if(this.model.playing)
             this.model.play();
     },
     
@@ -408,6 +433,14 @@ WMPlayer.prototype = {
         if(!this.started) {
             this.started = true;
             this.parentNode.appendChild(this.container);
+
+            var mediaContainer = this.container.querySelector('.wmplayer-media');
+            mediaContainer.appendChild(this.model.audio);
+            //yt iframe
+            var yt = mediaContainer.querySelector('.wmplayer-yt');
+            yt.id = 'wmplayer-yt-'+(document.querySelectorAll('.wmplayer .wmplayer-yt').length);
+            this.model.YTIframeId = yt.id;
+
             var currentTrackTitle = this.model.getCurrentTrackTitle();
             var currentTrackDuration = this.model.getCurrentTrackDuration();
             var playlist = this.model.getPlaylist();

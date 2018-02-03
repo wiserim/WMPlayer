@@ -1,6 +1,6 @@
 /*!
-* WMPlayer v0.6.4
-* Copyright 2016-2017 Marcin Walczak
+* WMPlayer v0.7.1
+* Copyright 2016-2018 Marcin Walczak
 *This file is part of WMPlayer which is released under MIT license.
 *See LICENSE for full license details.
 */
@@ -249,7 +249,7 @@ WMPlayerView.prototype = {
     //render player
     renderPlayer: function() {
         if(this.template !== null)
-            this.elements.container.innerHTML = this.template;
+            this.elements.container.getElementsByClassName('wmplayer-body')[0].innerHTML = this.template;
     },
     
     //render playlist
@@ -264,7 +264,7 @@ WMPlayerView.prototype = {
                     status = 'wmp-playlist-item';
                     if(i == $currentTrackIndex)
                         status += ' wmp-current';
-                    if($playlist[i].error)
+                    if($playlist[i].status == 'error')
                         status += ' wmp-error';
                     list = list+this.playlistPattern.replace('$index', (i+1)).replace('$title', $playlist[i].title).replace('$duration', this.formatTime($playlist[i].duration)).replace('$status', status);
                 }
@@ -403,8 +403,11 @@ WMPlayerView.prototype = {
     addContainerClass: function($newClassName) {
         if(this.elements.container.classList !== undefined)
             this.elements.container.classList.add($newClassName);
-        else
-            this.elements.container.className += ' '+$newClassName;
+        else {
+            var elClass = ' ' + this.elements.container.className + ' ';
+            if(elClass.indexOf(' ' + $newClassName + ' ') == -1)
+                this.elements.container.className += ' '+$newClassName;
+        }
     },
     
     //remove class from WMPlayer container
@@ -413,9 +416,8 @@ WMPlayerView.prototype = {
             this.elements.container.classList.remove($removedClassName);
         else {
             var elClass = ' ' + this.elements.container.className + ' ';
-            while(elClass.indexOf(' ' + $removedClassName + ' ') !== -1){
-                 elClass = elClass.replace(' ' + $removedClassName + ' ', '');
-            }
+            var reg = new RegExp(' '+$removedClassName+' ', 'g');
+            elClass = elClass.replace(reg, '');
             this.elements.container.className = elClass.trim();
         }
     },
