@@ -4,7 +4,7 @@ Customizable HTML5 web music player.
 
 WMPlayer features: 
 * **Dynamic playlist** - create and edit your playlist on the fly,
-* **YouTube support** - player suuport browser compatible audio formats and YouTube videos,
+* **YouTube support** - player support browser compatible audio formats and YouTube videos,
 * **Full player control** - play, pause, stop, fast-forward/rewind, next/previous song, volume, autoplay, loop and more,
 * **Easy, dynamic docking system** - WMPlayer can be dynamically placed anywhere on page, just designate it's parent node,
 * **Simple UI** - WMPlayer goes with simple but functional and responsive customizable UI.
