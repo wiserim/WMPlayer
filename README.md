@@ -1,10 +1,10 @@
-# WMPlayer (0.7.1)
+# WMPlayer (0.7.2)
 
 Customizable HTML5 web music player.
 
 WMPlayer features: 
 * **Dynamic playlist** - create and edit your playlist on the fly,
-* **YouTube support** - player suuport browser compatible audio formats and YouTube videos,
+* **YouTube support** - player support browser compatible audio formats and YouTube videos,
 * **Full player control** - play, pause, stop, fast-forward/rewind, next/previous song, volume, autoplay, loop and more,
 * **Easy, dynamic docking system** - WMPlayer can be dynamically placed anywhere on page, just designate it's parent node,
 * **Simple UI** - WMPlayer goes with simple but functional and responsive customizable UI.
@@ -78,19 +78,19 @@ $('#player').WMPlayer({
 |start|boolean|true|Run player.|
 
 ## Methods
-Methods can be called depending on how you initialized WMPlayer:
+Methods can be called and chained depending on how you initialized WMPlayer:
 
 **JavaScript**
 ```javascript
     var player = new WMPlayer();
-    player.addTrack('Song', 'song.mp3');
+    player.addTrack('Song', 'song.mp3').addTrack('Song 2', 'song2.mp3').autoplay();
 
 ```
 
 **JQuery**
 ```javascript
     $('player').WMPlayer();
-    $('player').WMPlayer('addTrack', 'Song', 'song.mp3');
+    $('player').WMPlayer('addTrack', 'Song', 'song.mp3').WMPlayer('addTrack', 'Song 2', 'song2.mp3').WMPlayer('autoplay');
 ```
 
 |Method|JQuery|Arguments|Description|

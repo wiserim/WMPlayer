@@ -1,5 +1,5 @@
 /*!
-* WMPlayer v0.7.1
+* WMPlayer v0.7.2
 * Copyright 2016-2018 Marcin Walczak
 *This file is part of WMPlayer which is released under MIT license.
 *See LICENSE for full license details.
@@ -46,7 +46,6 @@ function WMPlayerModel() {
     this.audio.addEventListener('playing', function() {
         self.audioTrackPlaying.notify();
     });
-
     this.audio.addEventListener('ended', function() {
         self.audioTrackEnded.notify();
     });

@@ -1,5 +1,5 @@
 /*!
-* WMPlayer v0.7.1
+* WMPlayer v0.7.2
 * Copyright 2016-2018 Marcin Walczak
 *This file is part of WMPlayer which is released under MIT license.
 *See LICENSE for full license details.
@@ -115,7 +115,7 @@ function WMPlayer($config) {
     //config arguments
     if ($config !== undefined) {
          //if config is node or jquery object
-        if(($config.nodeType !== undefined && $config.nodeType === 1) || $config instanceof jQuery)
+        if(($config.nodeType !== undefined && $config.nodeType === 1) || (window.jQuery && $config instanceof jQuery))
             this.parent($config);
         else {
             if($config.parent !== undefined) this.parent($config.parent, $config.parentAsTemplate);
@@ -317,6 +317,8 @@ function WMPlayer($config) {
             self.view.renderPlaylist(playlist, currentTrackIndex);
         }
     });
+
+    return this;
 }
 
 WMPlayer.prototype = {  
@@ -324,11 +326,13 @@ WMPlayer.prototype = {
     addTrack: function($url, $title) {
         if($title === undefined) $title = 'N/A';
         this.model.addAudioTrack($url, $title);
+        return this;
     },
     
     //remove audio track
     removeTrack: function($index) {
         this.model.delAudioTrack($index);
+        return this;
     },
     
     //set current track
@@ -336,6 +340,7 @@ WMPlayer.prototype = {
         if($index === undefined) $index = 0;
         this.model.setAudioTrack($index);
         if (this.started) this.model.play();
+        return this;
     },
     
     //next track
@@ -345,6 +350,8 @@ WMPlayer.prototype = {
             this.model.stop();
         else if(this.model.playing)
             this.model.play();
+
+        return this;
     },
     
     //previous track
@@ -353,16 +360,19 @@ WMPlayer.prototype = {
         this.model.previousTrack();
         if(this.model.playing)
             this.model.play();
+        return this;
     },
     
     //set volume
     volume: function($volume) {
         this.model.setVolume($volume);
+        return this;
     },
     
     //set/toggle mute
     mute: function($mute) {
         this.model.setMute($mute);
+        return this;
     },
     
     //set template
@@ -372,12 +382,14 @@ WMPlayer.prototype = {
         if($template.length > 0)
             $template = $template[0];
         this.view.setTemplate($template);
+        return this;
     },
     
     //set playlist pattern
     playlistPattern: function($pattern) {
         if($pattern !== undefined)
             this.view.setPlaylistPattern($pattern);
+        return this;
     },
     
     //set player parent node
@@ -399,26 +411,31 @@ WMPlayer.prototype = {
         
         if(this.started)
             this.parentNode.appendChild(this.container);
+        return this;
     },
     
     //set/toggle loop
     loop: function($loop) {
          this.model.setLoop($loop);
+         return this;
     },
     
     //set/toogle autoplay
     autoplay: function($autoplay) {
         this.model.setAutoplay($autoplay);
+        return this;
     },
     
     //set controls classes
     controls: function($elements) {
        this.view.setControls($elements);
+       return this;
     },
     
     //set/toggle playlist display
     showPlaylist: function($show) {
         this.view.setShowPlaylist($show);
+        return this;
     },
 
     //destroy player
@@ -426,6 +443,7 @@ WMPlayer.prototype = {
         if(this.container.parentNode == this.parentNode)
             this.parentNode.removeChild(this.container);
         this.started = false;
+        return this;
     },
     
     //player start
@@ -455,7 +473,8 @@ WMPlayer.prototype = {
             this.view.setCurrentTrackData(currentTrackTitle, currentTrackDuration);
             this.view.renderPlaylist(playlist, currentTrackIndex);
             if(autoplay) this.model.play();
-            else this.view.addContainerClass('paused');     
+            else this.view.addContainerClass('paused');
         }
+        return this;
     }
 };
