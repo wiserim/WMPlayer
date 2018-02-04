@@ -1,5 +1,5 @@
 /*!
-* WMPlayer v0.7.2
+* WMPlayer v0.7.3
 * Copyright 2016-2018 Marcin Walczak
 *This file is part of WMPlayer which is released under MIT license.
 *See LICENSE for full license details.
@@ -167,18 +167,19 @@ WMPlayerModel.prototype = {
             var audio = new Audio();
             //after loading audio track metadata, get track duration
             audio.onloadedmetadata = function($e) {
-                var i = 0;
+                var url = '';
                 //search track on playlist
                 if(self.playlist.length == 0)
                     return;
-                while((!($e.target.src.indexOf(self.playlist[i].url) >= 0 || $e.target.src.indexOf(encodeURI(self.playlist[i].url)) >= 0) || self.playlist[i].duration != 'N/A') && i < self.playlist.length) {
-                    i++;
+
+                for(i=0; i < self.playlist.length; i++){
+                    url = self.playlist[i].url.replace('../', '');
+                    if(($e.target.src.indexOf(url) >= 0 || $e.target.src.indexOf(encodeURI(url)) >= 0) && self.playlist[i].duration == 'N/A'){
+                        self.playlist[i].duration = audio.duration;
+                        self.audioTrackAdded.notify();
+                        break;
+                    }
                 }
-                
-                if(!($e.target.src.indexOf(self.playlist[i].url) >= 0 || $e.target.src.indexOf(encodeURI(self.playlist[i].url))))
-                    return;
-                self.playlist[i].duration = audio.duration;
-                self.audioTrackAdded.notify();
             };
             
             audio.src = self.playlist[index].url;

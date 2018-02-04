@@ -1,5 +1,5 @@
 /*!
-* WMPlayer v0.7.2
+* WMPlayer v0.7.3
 * Copyright 2016-2018 Marcin Walczak
 *This file is part of WMPlayer which is released under MIT license.
 *See LICENSE for full license details.

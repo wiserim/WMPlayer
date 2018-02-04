@@ -1,5 +1,5 @@
 /*!
-* WMPlayer v0.7.2
+* WMPlayer v0.7.3
 * Copyright 2016-2018 Marcin Walczak
 *This file is part of WMPlayer which is released under MIT license.
 *See LICENSE for full license details.
@@ -64,9 +64,14 @@ function WMPlayer($config) {
     //WMPlayer container
     this.container = document.createElement('div');
     if(this.container.classList !== undefined)
+    {
         this.container.classList.add('wmplayer');
+        this.container.classList.add('default');
+    }
     else
-        this.container.className += ' wmplayer';
+    {
+        this.container.className += ' wmplayer default';
+    }
 
     var playerBody = document.createElement('div');
     if(playerBody.classList !== undefined)
@@ -438,6 +443,12 @@ WMPlayer.prototype = {
         return this;
     },
 
+    //set player's class
+    playerClass($class) {
+        this.view.setPlayerClass($class);
+        return this;
+    },
+
     //destroy player
     destroy: function() {
         if(this.container.parentNode == this.parentNode)
@@ -641,18 +652,19 @@ WMPlayerModel.prototype = {
             var audio = new Audio();
             //after loading audio track metadata, get track duration
             audio.onloadedmetadata = function($e) {
-                var i = 0;
+                var url = '';
                 //search track on playlist
                 if(self.playlist.length == 0)
                     return;
-                while((!($e.target.src.indexOf(self.playlist[i].url) >= 0 || $e.target.src.indexOf(encodeURI(self.playlist[i].url)) >= 0) || self.playlist[i].duration != 'N/A') && i < self.playlist.length) {
-                    i++;
+
+                for(i=0; i < self.playlist.length; i++){
+                    url = self.playlist[i].url.replace('../', '');
+                    if(($e.target.src.indexOf(url) >= 0 || $e.target.src.indexOf(encodeURI(url)) >= 0) && self.playlist[i].duration == 'N/A'){
+                        self.playlist[i].duration = audio.duration;
+                        self.audioTrackAdded.notify();
+                        break;
+                    }
                 }
-                
-                if(!($e.target.src.indexOf(self.playlist[i].url) >= 0 || $e.target.src.indexOf(encodeURI(self.playlist[i].url))))
-                    return;
-                self.playlist[i].duration = audio.duration;
-                self.audioTrackAdded.notify();
             };
             
             audio.src = self.playlist[index].url;
@@ -1101,12 +1113,14 @@ WMPlayerModel.prototype = {
         
     }
 };
+
 //WMPlayer view
 function WMPlayerView($elements) {
     var self = this;
     this.elements = $elements;
     this.template = null;
     this.playlistPattern = '';
+    this.playerClass = 'default';
     this.container = this.elements.container;
     this.mousedownFlag = false;
     this.showPlaylist = true;
@@ -1497,25 +1511,45 @@ WMPlayerView.prototype = {
     
     //add class to WMPlayer container
     addContainerClass: function($newClassName) {
+        var self = this;
+        var $classes = $newClassName.split(' ');
         if(this.elements.container.classList !== undefined)
-            this.elements.container.classList.add($newClassName);
+            $classes.forEach(function ($class) {
+                self.elements.container.classList.add($class);
+            }); 
         else {
             var elClass = ' ' + this.elements.container.className + ' ';
-            if(elClass.indexOf(' ' + $newClassName + ' ') == -1)
-                this.elements.container.className += ' '+$newClassName;
+            $classes.forEach(function ($class) {
+                if(elClass.indexOf(' ' + $class + ' ') == -1)
+                    self.elements.container.className += ' '+$class;
+            });
         }
     },
     
     //remove class from WMPlayer container
     removeContainerClass: function($removedClassName) {
+        var self = this;
+        var $classes = $removedClassName.split(' ');
+
         if(this.elements.container.classList !== undefined)
-            this.elements.container.classList.remove($removedClassName);
+            $classes.forEach(function ($class) {
+                self.elements.container.classList.remove($class);
+            });
         else {
             var elClass = ' ' + this.elements.container.className + ' ';
-            var reg = new RegExp(' '+$removedClassName+' ', 'g');
-            elClass = elClass.replace(reg, '');
-            this.elements.container.className = elClass.trim();
+            $classes.forEach(function ($class) {
+                var reg = new RegExp(' '+$class+' ', 'g');
+                elClass = elClass.replace(reg, '');
+                self.elements.container.className = elClass.trim();
+            });
         }
+    },
+
+    //sets WMPlayer container's style class
+    setPlayerClass: function($newClass) {
+        this.removeContainerClass(this.playerClass);
+        this.addContainerClass($newClass);
+        this.playerClass = $newClass;
     },
     
     //set controll classes
@@ -1533,6 +1567,7 @@ WMPlayerView.prototype = {
         if($elements.currentTrackTitle !== undefined) this.elements.currentTrackTitle = $elements.currentTrackTitle;
     }
 };
+
 //WMPlayer event container
 function WMPlayerEvent($sender) {
     this.sender = $sender;          

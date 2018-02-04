@@ -1,5 +1,5 @@
 /*!
-* WMPlayer v0.7.2
+* WMPlayer v0.7.3
 * Copyright 2016-2018 Marcin Walczak
 *This file is part of WMPlayer which is released under MIT license.
 *See LICENSE for full license details.
@@ -11,6 +11,7 @@ function WMPlayerView($elements) {
     this.elements = $elements;
     this.template = null;
     this.playlistPattern = '';
+    this.playerClass = 'default';
     this.container = this.elements.container;
     this.mousedownFlag = false;
     this.showPlaylist = true;
@@ -401,25 +402,45 @@ WMPlayerView.prototype = {
     
     //add class to WMPlayer container
     addContainerClass: function($newClassName) {
+        var self = this;
+        var $classes = $newClassName.split(' ');
         if(this.elements.container.classList !== undefined)
-            this.elements.container.classList.add($newClassName);
+            $classes.forEach(function ($class) {
+                self.elements.container.classList.add($class);
+            }); 
         else {
             var elClass = ' ' + this.elements.container.className + ' ';
-            if(elClass.indexOf(' ' + $newClassName + ' ') == -1)
-                this.elements.container.className += ' '+$newClassName;
+            $classes.forEach(function ($class) {
+                if(elClass.indexOf(' ' + $class + ' ') == -1)
+                    self.elements.container.className += ' '+$class;
+            });
         }
     },
     
     //remove class from WMPlayer container
     removeContainerClass: function($removedClassName) {
+        var self = this;
+        var $classes = $removedClassName.split(' ');
+
         if(this.elements.container.classList !== undefined)
-            this.elements.container.classList.remove($removedClassName);
+            $classes.forEach(function ($class) {
+                self.elements.container.classList.remove($class);
+            });
         else {
             var elClass = ' ' + this.elements.container.className + ' ';
-            var reg = new RegExp(' '+$removedClassName+' ', 'g');
-            elClass = elClass.replace(reg, '');
-            this.elements.container.className = elClass.trim();
+            $classes.forEach(function ($class) {
+                var reg = new RegExp(' '+$class+' ', 'g');
+                elClass = elClass.replace(reg, '');
+                self.elements.container.className = elClass.trim();
+            });
         }
+    },
+
+    //sets WMPlayer container's style class
+    setPlayerClass: function($newClass) {
+        this.removeContainerClass(this.playerClass);
+        this.addContainerClass($newClass);
+        this.playerClass = $newClass;
     },
     
     //set controll classes

@@ -1,5 +1,5 @@
 /*!
-* WMPlayer v0.7.2
+* WMPlayer v0.7.3
 * Copyright 2016-2018 Marcin Walczak
 *This file is part of WMPlayer which is released under MIT license.
 *See LICENSE for full license details.
@@ -64,9 +64,14 @@ function WMPlayer($config) {
     //WMPlayer container
     this.container = document.createElement('div');
     if(this.container.classList !== undefined)
+    {
         this.container.classList.add('wmplayer');
+        this.container.classList.add('default');
+    }
     else
-        this.container.className += ' wmplayer';
+    {
+        this.container.className += ' wmplayer default';
+    }
 
     var playerBody = document.createElement('div');
     if(playerBody.classList !== undefined)
@@ -435,6 +440,12 @@ WMPlayer.prototype = {
     //set/toggle playlist display
     showPlaylist: function($show) {
         this.view.setShowPlaylist($show);
+        return this;
+    },
+
+    //set player's class
+    playerClass($class) {
+        this.view.setPlayerClass($class);
         return this;
     },
 
