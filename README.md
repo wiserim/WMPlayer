@@ -1,4 +1,4 @@
-# WMPlayer (0.7.2)
+# WMPlayer (0.7.3)
 
 Customizable HTML5 web music player.
 
@@ -7,7 +7,7 @@ WMPlayer features:
 * **YouTube support** - player support browser compatible audio formats and YouTube videos,
 * **Full player control** - play, pause, stop, fast-forward/rewind, next/previous song, volume, autoplay, loop and more,
 * **Easy, dynamic docking system** - WMPlayer can be dynamically placed anywhere on page, just designate it's parent node,
-* **Simple UI** - WMPlayer goes with simple but functional and responsive customizable UI.
+* **Simple UI** - WMPlayer goes by default with simple, functional and responsive customizable UI in two variants ("default" and "default dark").
 * **Customizable appearence** - If you don't like default UI, you can easily change player's template with HTML,
 * **JQuery support** - player can be used with JQuery 1.7+, or pure JavaScript,
 * **Cross browser** - player is compatible with IE9+, Edge, Firefox, Chrome, Opera, and mobile browsers,
@@ -111,6 +111,7 @@ Methods can be called and chained depending on how you initialized WMPlayer:
 |template(template)|$(element).WMPlayer('template', template)|template: string/node/JQuery selector|Set player's template. See [Custom templates](#custom-templates) for more informations.|
 |playlistPattern(pattern)|$(element).WMPlayer('playlistPattern', pattern)|pattern: string|Set playlist elements patterns. See [Custom templates](#custom-templates) for more informations.|
 |controls(controls)|$(element).WMPlayer('controls', controls)|controls: object| Set player's controls classes. See [Custom templates](#custom-templates) for more informations.|
+|playerClass(class)|$(element).WMPlayer('playerClass', class)|class: string|Set player's main class. See [Custom templates](#custom-templates) for more informations.|
 |destroy()|$(element).WMPlayer('destroy')|none|Destroy player.|
 
 ## Custom templates
@@ -120,6 +121,17 @@ WMPlayer's appearance can be easily customized with HTML and CSS.
 ### Setting template
 
 WMPlayer's template can be changed by:
+* changing player's main class (player goes with two styles: default and default dark)
+
+**JavaScript**
+```javascript
+var player = new WMPlayer().playerClass('default dark');
+```
+**JQuery**
+```javascript
+$('#player').WMPlayer().WMPlayer('playerclass', 'default dark');
+```
+
 * setting player's parent content as template:
 
 **JavaScript**
