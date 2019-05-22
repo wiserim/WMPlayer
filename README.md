@@ -1,4 +1,4 @@
-# WMPlayer (0.7.3)
+# WMPlayer (0.8)
 
 Customizable HTML5 web music player.
 
