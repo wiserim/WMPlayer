@@ -1,17 +1,17 @@
 /*!
-* WMPlayer v0.7.3
-* Copyright 2016-2018 Marcin Walczak
+* WMPlayer v0.8
+* Copyright 2016-2019 Marcin Walczak
 *This file is part of WMPlayer which is released under MIT license.
 *See LICENSE for full license details.
 */
 
 //WMPlayer event container
-function WMPlayerEvent($sender) {
+WMPlayer.prototype._Event = function($sender) {
     this.sender = $sender;			
     this.listeners = [];
 }
 
-WMPlayerEvent.prototype = {
+WMPlayer.prototype._Event.prototype = {
     attach: function($listener) {
         this.listeners.push($listener);
     },
@@ -22,3 +22,4 @@ WMPlayerEvent.prototype = {
         }
     }
 };
+

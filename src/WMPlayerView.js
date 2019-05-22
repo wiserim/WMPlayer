@@ -1,13 +1,14 @@
 /*!
-* WMPlayer v0.7.3
-* Copyright 2016-2018 Marcin Walczak
+* WMPlayer v0.8
+* Copyright 2016-2019 Marcin Walczak
 *This file is part of WMPlayer which is released under MIT license.
 *See LICENSE for full license details.
 */
 
 //WMPlayer view
-function WMPlayerView($elements) {
+WMPlayer.prototype._View = function($elements) {
     var self = this;
+    var Event = WMPlayer.prototype._Event;
     this.elements = $elements;
     this.template = null;
     this.playlistPattern = '';
@@ -21,16 +22,16 @@ function WMPlayerView($elements) {
     
     
     //view events
-    this.playButtonClicked = new WMPlayerEvent(this);
-    this.stopButtonClicked = new WMPlayerEvent(this);
-    this.fastForwardButtonPressed = new WMPlayerEvent(this);
-    this.rewindButtonPressed = new WMPlayerEvent(this);
-    this.progressBarClicked = new WMPlayerEvent(this);
-    this.volumeBarClicked = new WMPlayerEvent(this);
-    this.muteButtonClicked = new WMPlayerEvent(this);
-    this.playlistElementDoubleClicked = new WMPlayerEvent(this);
-    this.templateModified = new WMPlayerEvent(this);
-    this.playlistPatternModified = new WMPlayerEvent(this);
+    this.playButtonClicked = new Event(this);
+    this.stopButtonClicked = new Event(this);
+    this.fastForwardButtonPressed = new Event(this);
+    this.rewindButtonPressed = new Event(this);
+    this.progressBarClicked = new Event(this);
+    this.volumeBarClicked = new Event(this);
+    this.muteButtonClicked = new Event(this);
+    this.playlistElementDoubleClicked = new Event(this);
+    this.templateModified = new Event(this);
+    this.playlistPatternModified = new Event(this);
     
     //attach event listeners
     //click inside WMPlayer container
@@ -246,7 +247,7 @@ function WMPlayerView($elements) {
     });
 }
 
-WMPlayerView.prototype = {
+WMPlayer.prototype._View.prototype = {
     //render player
     renderPlayer: function() {
         if(this.template !== null)
@@ -430,7 +431,7 @@ WMPlayerView.prototype = {
             var elClass = ' ' + this.elements.container.className + ' ';
             $classes.forEach(function ($class) {
                 var reg = new RegExp(' '+$class+' ', 'g');
-                elClass = elClass.replace(reg, '');
+                elClass = elClass.replace(reg, ' ');
                 self.elements.container.className = elClass.trim();
             });
         }

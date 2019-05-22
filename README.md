@@ -66,6 +66,7 @@ $('#player').WMPlayer({
 |---|---|---|---|
 |parent|node/JQuery selector|Script's parent node|Sets player's parent.|
 |parentAsTemplate|boolean|false|Take parent's content as player's template.|
+|theme|string|'default'|Sets player's theme class. See [Custom templates](#custom-templates) for more informations.|
 |template|string/node/JQuery selector|Default template|Sets player's template. See [Custom templates](#custom-templates) for more informations.|
 |playlistPattern|string|Default pattern|Sets playlist pattern. See [Custom templates](#custom-templates) for more informations.|
 |controls|object|false|Sets classes of player's interactive elements. See [Custom templates](#custom-templates) for more informations.|
@@ -83,35 +84,40 @@ Methods can be called and chained depending on how you initialized WMPlayer:
 **JavaScript**
 ```javascript
     var player = new WMPlayer();
-    player.addTrack('Song', 'song.mp3').addTrack('Song 2', 'song2.mp3').autoplay();
+    player
+    .addTrack('Song', 'song.mp3')
+    .addTrack('Song 2', 'song2.mp3')
+    .autoplay();
 
 ```
 
 **JQuery**
 ```javascript
     $('player').WMPlayer();
-    $('player').WMPlayer('addTrack', 'Song', 'song.mp3').WMPlayer('addTrack', 'Song 2', 'song2.mp3').WMPlayer('autoplay');
+    $('player')
+    .WMPlayer('addTrack', 'Song', 'song.mp3')
+    .WMPlayer('addTrack', 'Song 2', 'song2.mp3')
+    .WMPlayer('autoplay');
 ```
 
-|Method|JQuery|Arguments|Description|
-|---|---|---|---|
-|WMPlayer([config])|$(element).WMPlayer([config])|config : object/node/JQuery selector|Initializes WMPlayer. If provided node/JQuery selector, sets players'parent. See [options](#options) for more information.|
-|start()|$(element).WMPlayer('start')|none|Run player.|
-|addTrack(url, [title = 'N/A'])|$(element).WMPlayer('addTrack', url, [title = 'N/A'])|url : string, title: string|Add audio track to playlist|
-|removeTrack([index])|$(element).WMPlayer('removeTrack', [index = last playlist element])|index : int|Removes position from playlist. Last playlist element is removed by default.|
-|track(index)|$(element).WMPlayer('track', [index])|index : int|Play playlist element. First playlist element is played by default.|
-|nextTrack()|$(element).WMPlayer('nextTrack')||Set next track as current.|
-|previousTrack()|$(element).WMPlayer('previousTrack')||Set previous track as current.|
-|volume([volume = 1])|$(element).WMPlayer('volume', [volume = 1])|volume: float [0-1]|Set player's volume.|
-|mute([mute])|$(element).WMPlayer('mute', [mute])|mute: boolean|Set/toggle player's mute.|
-|autoplay([autoplay])|$(element).WMPlayer('auoplay', [autoplay])|autoplay: boolean|Set/toggle player's autoplay option.|
-|loop([loop])|$(element).WMPlayer('loop', [loop])|loop: boolean|Set/toggle player's loop option.|
-|showPlaylist([showPlaylist])|$(element).WMPlayer('showPlaylist', [showPlaylist])|showPlaylist: boolean|Set/toggle player's playlist display.|
-|parent([parent], [setAsTemplate = false])|$(element).WMPlayer('parent', [parent], [setAsTemplate = false])| parent: node/JQuery, setAsTemplate: boolean|Set player's container and optionally set its content as a template.|
-|template(template)|$(element).WMPlayer('template', template)|template: string/node/JQuery selector|Set player's template. See [Custom templates](#custom-templates) for more informations.|
-|playlistPattern(pattern)|$(element).WMPlayer('playlistPattern', pattern)|pattern: string|Set playlist elements patterns. See [Custom templates](#custom-templates) for more informations.|
+|Method|Arguments|Description|
+|---|---|---|
+|start()|none|Run player.|
+|addTrack(url, [title = 'N/A'])|url : string, title: string|Add audio track to playlist|
+|removeTrack([index])|index : int|Removes position from playlist. Last playlist element is removed by default.|
+|track([index])|index : int|Play playlist element. First playlist element is played by default.|
+|nextTrack()|none|Set next track as current.|
+|previousTrack()|none|Set previous track as current.|
+|volume([volume = 1])|volume: float [0-1]|Set player's volume.|
+|mute([mute])|mute: boolean|Set/toggle player's mute.|
+|autoplay([autoplay])|autoplay: boolean|Set/toggle player's autoplay option.|
+|loop([loop])|loop: boolean|Set/toggle player's loop option.|
+|showPlaylist([showPlaylist])|showPlaylist: boolean|Set/toggle player's playlist display.|
+|parent([parent], [setAsTemplate = false])|parent: string/node/JQuery, setAsTemplate: boolean|Set player's container and optionally set its content as a template.|
+|theme(class)|class: string|Set player's theme class. See [Custom templates](#custom-templates) for more informations.|
+|template(template)|template: string/node/JQuery selector|Set player's template. See [Custom templates](#custom-templates) for more informations.|
+|playlistPattern(pattern)|pattern: string|Set playlist elements patterns. See [Custom templates](#custom-templates) for more informations.|
 |controls(controls)|$(element).WMPlayer('controls', controls)|controls: object| Set player's controls classes. See [Custom templates](#custom-templates) for more informations.|
-|playerClass(class)|$(element).WMPlayer('playerClass', class)|class: string|Set player's main class. See [Custom templates](#custom-templates) for more informations.|
 |destroy()|$(element).WMPlayer('destroy')|none|Destroy player.|
 
 ## Custom templates
@@ -121,15 +127,15 @@ WMPlayer's appearance can be easily customized with HTML and CSS.
 ### Setting template
 
 WMPlayer's template can be changed by:
-* changing player's main class (player goes with two styles: default and default dark)
+* changing player's theme class (player goes with two themes: default and default dark)
 
 **JavaScript**
 ```javascript
-var player = new WMPlayer().playerClass('default dark');
+var player = new WMPlayer().theme('default dark');
 ```
 **JQuery**
 ```javascript
-$('#player').WMPlayer().WMPlayer('playerclass', 'default dark');
+$('#player').WMPlayer().WMPlayer('theme', 'default dark');
 ```
 
 * setting player's parent content as template:
@@ -193,16 +199,16 @@ Playlist positions are generated based on pattern:
 
 <!--generated playlist-->
 <div class="wmp-playlist-item wmp-current"><span>1.</span><span>Song 1</span><span>1:30</span></div>
-<div class="wmp-playlist-item"><span>2.</span><span>Song 1</span><span>1:30</span></div>
-<div class="wmp-playlist-item wmp-error"><span>3.</span><span>Song 1</span><span>1:30</span></div>
+<div class="wmp-playlist-item"><span>2.</span><span>Song 2</span><span>1:30</span></div>
+<div class="wmp-playlist-item wmp-error"><span>3.</span><span>Song 3</span><span>N/A</span></div>
 ```
-where:
-* **$status** - status tag (required): signify playlist position's main container and placement of track's status (current track, error) (**WARNING**: $status tag must be inserted into class attribute, otherwise playlist won't respond properly),
+Playlist pattern contain tags which are replaced with playlist items data like:
+* **$status** - status tag: signify playlist position's main container and placement of track's status (current track, error) (**WARNING**: $status tag must be inserted into class attribute, otherwise playlist won't show playlist item status),
 * **$index** - index tag: placement of audio index number,
 * **$title** - title tag: placement ot audiotrack's title,
 * **$duration** - duration tag: placement of audiotrack's duration.
 
-Playlist pattern can be also changed:
+Playlist pattern can also be changed:
 
 **JavaScript**
 ```javascript

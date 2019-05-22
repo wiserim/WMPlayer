@@ -1,13 +1,14 @@
 /*!
-* WMPlayer v0.7.3
-* Copyright 2016-2018 Marcin Walczak
+* WMPlayer v0.8
+* Copyright 2016-2019 Marcin Walczak
 *This file is part of WMPlayer which is released under MIT license.
 *See LICENSE for full license details.
 */
 
 //WMPlayer model
-function WMPlayerModel() {
-    var self = this;   
+WMPlayer.prototype._Model = function() {
+    var self = this;
+    var Event = WMPlayer.prototype._Event;
     this.audio = new Audio();
     this.YTIframeId = '';
     this.YTIframe = false;
@@ -27,18 +28,18 @@ function WMPlayerModel() {
     this.YTCTInterval = -1; //interval for YoTube video current time updates 
     
     //model events
-    this.audioTrackAdded = new WMPlayerEvent(this);
-    this.audioTrackRemoved = new WMPlayerEvent(this);
-    this.currentTrackChanged = new WMPlayerEvent(this);
-    this.audioTrackPlaying = new WMPlayerEvent(this);
-    this.audioTrackPaused = new WMPlayerEvent(this);
-    this.audioTrackStopped = new WMPlayerEvent(this);
-    this.audioTrackEnded = new WMPlayerEvent(this);
-    this.audioTrackError = new WMPlayerEvent(this);
-    this.durationChanged = new WMPlayerEvent(this);
-    this.volumeChanged = new WMPlayerEvent(this);
-    this.volumeChanged = new WMPlayerEvent(this);
-    
+    this.audioTrackAdded = new Event(this);
+    this.audioTrackRemoved = new Event(this);
+    this.currentTrackChanged = new Event(this);
+    this.audioTrackPlaying = new Event(this);
+    this.audioTrackPaused = new Event(this);
+    this.audioTrackStopped = new Event(this);
+    this.audioTrackEnded = new Event(this);
+    this.audioTrackError = new Event(this);
+    this.durationChanged = new Event(this);
+    this.volumeChanged = new Event(this);
+    this.volumeChanged = new Event(this);
+
     //attach event listeners
     this.audio.addEventListener('play', function() {
         self.audioTrackPlaying.notify();
@@ -64,7 +65,7 @@ function WMPlayerModel() {
     });
 }
 
-WMPlayerModel.prototype = {
+WMPlayer.prototype._Model.prototype = {
     //get playlist
     getPlaylist: function() {
         return this.playlist;
