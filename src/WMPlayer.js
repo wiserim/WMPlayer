@@ -65,7 +65,7 @@ function WMPlayer($config) {
     var yt = document.createElement("div");
     yt.className += "wmplayer-yt";
     mediaContainer.appendChild(yt);
-    mediaContainer.setAttribute("style", "width: 0; height: 0; overflow: hidden; opacity: 0; visibility: hidden;");
+    mediaContainer.setAttribute("style", "width: 0; height: 0; overflow: hidden; opacity: 0;");
 
     //load You Tube iframe api
     if (document.querySelectorAll('script[src="https://www.youtube.com/iframe_api"]').length == 0) {
@@ -110,6 +110,7 @@ function WMPlayer($config) {
             if ($config.loop !== undefined) this.loop($config.loop);
             if ($config.volume !== undefined) this.volume($config.volume);
             if ($config.mute !== undefined) this.mute($config.mute);
+            if ($config.YTApiKey !== undefined) this.model.setYTApiKey($config.YTApiKey);
             if ($config.playlist !== undefined) {
                 $config.playlist.forEach(function($audioTrack) {
                     self.addTrack($audioTrack.url, $audioTrack.title);

@@ -10,6 +10,7 @@ WMPlayer.prototype._Model = function() {
     var self = this;
     var Event = WMPlayer.prototype._Event;
     this.audio = new Audio();
+    this.YTApiKey = 'AIzaSyDerqq5DmHBdfBWMHkaWwjvj4MbtYAD7-A';
     this.YTIframeId = '';
     this.YTIframe = false;
     this.playlist = [];
@@ -187,8 +188,17 @@ WMPlayer.prototype._Model.prototype = {
             audio.load();
         }
         //if track is YouTube video
-        else {
-            var url = 'https://www.googleapis.com/youtube/v3/videos?key=AIzaSyDerqq5DmHBdfBWMHkaWwjvj4MbtYAD7-A&part=contentDetails&id='+self.playlist[index].url;
+        else if(self.playlist[index].type == 'yt') {
+            if(!self.YTApiKey) {
+                self.playlist[index].status = 'error';
+                console.log('YouTube API Key not found.');
+
+                if(self.currentTrackIndex === null)
+                    self.setAudioTrack();
+                return;
+            }
+            
+            var url = 'https://www.googleapis.com/youtube/v3/videos?key='+self.YTApiKey+'&part=contentDetails&id='+self.playlist[index].url;
             var xhr = new XMLHttpRequest();
             // XHR for Chrome/Firefox/Opera/Safari.
             if('withCredentials' in xhr) {
@@ -280,7 +290,7 @@ WMPlayer.prototype._Model.prototype = {
         if(this.currentTrackIndex !== null) {
             if(this.playlist[this.currentTrackIndex].type == 'audio')
                 this.audio.pause();
-            else if(this.YTReady)
+            else if(this.playlist[this.currentTrackIndex].type == 'yt' && this.YTReady)
                 this.YTIframe.pauseVideo();
             this.audioTrackPaused.notify();
         }
@@ -294,19 +304,21 @@ WMPlayer.prototype._Model.prototype = {
                     this.audio.load();
                 }
                 //if current track is a YouTube video
-                else {
+                else if(this.playlist[$index].type == 'yt' && this.YTApiKey != '') {
                     if(this.YTIframe) {
                         this.YTIframe.loadVideoById({
                             'videoId': this.playlist[$index].url,
                             'startSeconds': 0,
                             'volume': this.volume,
-                            'suggestedQuality': 'small'});
+                            'suggestedQuality': 'small'
+                        });
                     }
                     else {
                         this.initYTIframe(this.playlist[$index].url)
                     }
                     this.YTCTInterval = setInterval(function() {self.durationChanged.notify();}, 100);
                 }
+
                 this.currentTrackIndex = $index;
                 this.currentTrackChanged.notify();
             }
@@ -326,7 +338,8 @@ WMPlayer.prototype._Model.prototype = {
                                 self.YTIframe.loadVideoById({
                                     'videoId': self.playlist[$index].url,
                                     'startSeconds': 0,
-                                    'suggestedQuality': 'small'});
+                                    'suggestedQuality': 'small'
+                                });
                             }
                             else {
                                 self.initYTIframe(self.playlist[$index].url)
@@ -434,13 +447,22 @@ WMPlayer.prototype._Model.prototype = {
                 this.canPause = true;
         }
         //if current track is a YouTube video
-        else if(this.YTReady) {
-            this.YTIframe.playVideo();
-            this.canPause = true;
-            this.audioTrackPlaying.notify();
+        else if(this.playlist[this.currentTrackIndex].type == 'yt') {
+            if(!self.YTApiKey) {
+                console.log('YouTube API Key not found.');
+                self.canPause = true;
+                self.audioTrackError.notify();
+            }
+             
+            if(this.YTReady) {
+                this.YTIframe.playVideo();
+                this.canPause = true;
+                this.audioTrackPlaying.notify();
+            }
+            else
+                this.YTQuene = 'play';
         }
-        else
-            this.YTQuene = 'play';
+
         this.playing = true;
     },
     
@@ -553,6 +575,11 @@ WMPlayer.prototype._Model.prototype = {
         }
     },
 
+    //setYouTube API key
+    setYTApiKey: function($key) {
+        this.YTApiKey = $key;
+    },
+
     //parse YouTube url
     parseYTURL: function($url) {
         var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
@@ -591,7 +618,8 @@ WMPlayer.prototype._Model.prototype = {
                     videoId: $videoId,
                     playerVars: {
                         'autoplay': 0,
-                        'controls': 0
+                        'controls': 0,
+                        'origin': window.location
                     },
                     events: {
                         'onReady': function(e){

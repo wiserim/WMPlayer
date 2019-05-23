@@ -1,4 +1,4 @@
-# WMPlayer (0.8)
+# WMPlayer (0.7.3)
 
 Customizable HTML5 web music player.
 
@@ -75,6 +75,7 @@ $('#player').WMPlayer({
 |volume|float [0-1]|1|Sets player's volume.|
 |mute|boolean|false|Sets player's mute.|
 |playlist|array|[]|Sets player's playlist. Playlist has forem: [{title: 'Song title', url: 'Song URL'}, ...]|
+|YTApiKey|string|''|YouTube API Key|
 |showPlaylist|boolean|true|Sets player's playlist visibility.|
 |start|boolean|true|Run player.|
 
@@ -103,7 +104,7 @@ Methods can be called and chained depending on how you initialized WMPlayer:
 |Method|Arguments|Description|
 |---|---|---|
 |start()|none|Run player.|
-|addTrack(url, [title = 'N/A'])|url : string,<br/>title: string|Add audio track to playlist|
+|addTrack(url, [title = 'N/A'])|url : string, title: string|Add audio track to playlist|
 |removeTrack([index])|index : int|Removes position from playlist. Last playlist element is removed by default.|
 |track([index])|index : int|Play playlist element. First playlist element is played by default.|
 |nextTrack()|none|Set next track as current.|
@@ -113,7 +114,7 @@ Methods can be called and chained depending on how you initialized WMPlayer:
 |autoplay([autoplay])|autoplay: boolean|Set/toggle player's autoplay option.|
 |loop([loop])|loop: boolean|Set/toggle player's loop option.|
 |showPlaylist([showPlaylist])|showPlaylist: boolean|Set/toggle player's playlist display.|
-|parent([parent], [setAsTemplate = false])|parent: string/node/JQuery,<br/>setAsTemplate: boolean|Set player's container and optionally set its content as a template.|
+|parent([parent], [setAsTemplate = false])|parent: string/node/JQuery, setAsTemplate: boolean|Set player's container and optionally set its content as a template.|
 |theme(class)|class: string|Set player's theme class. See [Custom templates](#custom-templates) for more informations.|
 |template(template)|template: string/node/JQuery selector|Set player's template. See [Custom templates](#custom-templates) for more informations.|
 |playlistPattern(pattern)|pattern: string|Set playlist elements patterns. See [Custom templates](#custom-templates) for more informations.|
