@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>WMPlayer - web music player for your website</title>
+    <meta name="description" content="Free Responsive Music Player for your website. Support MP3 and Custom Templates." /> 
+    <meta name="keywords" content="wmplayer, web music player, tumblr music player, javascitpt library, open source, responsive, web application"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="apple-touch-icon" sizes="152x152" href="images/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" href="images/favicon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="images/favicon/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="images/favicon/manifest.json">
+    <link rel="mask-icon" href="images/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="theme-color" content="#ffffff">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/WMPlayer/wmplayer.min.css">
+	<link rel="stylesheet" href="css/WMPlayer/classic.css">
+	
+	<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">WMPlayer</a>
+			</div>
+			<div class="collapse navbar-collapse" id="navbar">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#start" data-toggle="tab">Start</a></li>
+					<li><a href="#playerPresentation" data-toggle="tab">Demo</a></li>
+					<!--<li><a href="#deploymentScriptCreator" data-toggle="tab">Setup</a></li>-->
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div class="container fill">
+		<div class="tab-content">
+			<section class="tab-pane fade in active" id="start">
+				<div class="row">
+					<div class="col-sm-12">
+						<h1>
+                            WMPlayer
+                            <p style="font-size: 14px;"><strong>Responsive music player for your website</strong></p>
+                        </h1>
+                        <p>WMPlyer is a free, open source web music player. </p>
+                        <p>Features:</p>
+                        <ul>
+                            <li><strong>Full player control</strong> - Play, pause, stop, next, previous, fast forward, rewind, seek, volume and loop mode</li>
+                            <li><strong>Dynamic playlist</strong> - Make your own playlist without any problem</li>
+                            <li><strong>Customizable templates</strong> - Use one of available templates or create your own</li>
+                            <li><strong>Easy to deploy</strong> - Dock player wherever you want on site</li>
+                            <li><strong>Setup wizard</strong> - Create your own WMPlayer with ease</li>
+                        </ul>
+					</div>
+				</div>
+			</section>
+			<!--Prezentacja aplikacji WMPlayer-->
+			<section class="tab-pane fade" id="playerPresentation">
+				<div class="row">
+					<div class="col-sm-12">
+						<h2>Demo</h2>
+						<p>Click "Start" to launch player.</p>
+					</div>
+				</div>
+				<div class="row">
+					<!--panel kontrolny-->
+					<div class="col-sm-6 col-sm-push-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">Options</div>
+							<div class="panel-body">
+								<div class="form-group">
+									<button id="playerStart" class="btn btn-primary">Start</button>
+								</div>
+								<div class="form-group">
+									<label>Template</label>
+									<select id="setTemplate" class="form-control">
+										<option value="default" selected="selected">Default</option>
+										<option value="default-dark" selected="selected">Default dark</option>
+										<option value="classic">Classic</option>
+									</select>
+								</div>
+								
+								<div class="form-group">
+									<label>Player's container</label><br/>
+									<select id="setContainer" class="form-control">
+										<option value="container-1" selected>Container 1</option>
+										<option value="container-2">Container 2</option>
+									</select>
+								</div>
+								
+								<div class="checkbox">
+									<label>
+										<input id="setAutoplay" type="checkbox"> Autoplay
+									</label>
+								</div>
+								<div class="checkbox">
+									<label>
+										<input id="setLoop" type="checkbox"> Loop
+									</label>
+								</div>
+								<div class="form-group">
+									<label>Volume</label>
+									<div class="volume">
+										<input id="setVolume" name="setVolume" class="form-control volume" type="range" min="0" max="100" value="100" />
+										<div class="volumeValue setVolumeValue">100</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
+						<div class="panel panel-default">
+							<div class="panel-heading">Track selection</div>
+							<div class="panel-body">
+								 <div class="form-group">
+									<label>Select track</label>
+									<select id="setTrack" class="form-control">
+										<option value="first">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						
+						<div class="panel panel-default">
+							<div class="panel-heading">Add track</div>
+							<div class="panel-body">
+								<div class="form-group">
+									<label>Track title</label>
+									<input type="text" id="addTrackTitle" placeholder="Track title" class="form-control"/>
+								</div>
+								<div class="form-group">
+									<label>Track URL</label>
+									<input type="text" id="addTrackUrl" placeholder="Track URL" class="form-control"/>
+								</div>
+								<div class="form-group">
+									<button id="addTrack" class="btn btn-primary">Add track</button>
+								</div>
+							</div>
+						</div>
+						
+						<div class="panel panel-default">
+							<div class="panel-heading">Remove track</div>
+							<div class="panel-body">
+								 <label> Select track to remove</label>
+								 <div class="row">
+									<div class="col-sm-8">
+										<div class="form-group">
+											<select id="deleteTrackPosition" class="form-control">
+												<option value="last">Last</option>
+												<option value="1">1</option>
+												<option value="2">2</option>
+												<option value="3">3</option>
+												<option value="4">4</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-sm-4">
+										<div class="form-group">
+											<button id="deleteTrack" class="btn btn-primary">Remove track</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--kontenery aplikacji-->
+					<div class="col-sm-6 col-sm-pull-6">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								Container 1
+							</div>
+							<div id="container-1" class="panel-body">
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading">
+								Container 2
+							</div>
+							<div id="container-2" class="panel-body">
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-sm-12">
+						<p><i>Carefree</i>, <i>Inspired</i>, <i>Monkeys Spinning Monkeys</i>, <i>Sneaky Snitch</i>, <i>The Complex</i> - Kevin MacLeod (<a href="http://incompetech.com/" target="_blank">http://incompetech.com/</a>)</p>
+                        <p>Licensed under Creative Commons: By Attribution 3.0 License <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">http://creativecommons.org/licenses/by/3.0/</a></p>
+					</div>
+				</div>
+			</section>
+			
+			<!--Prezentacja skryptu publikujacego-->
+            <!--
+			<section class="tab-pane fade" id="deploymentScriptPresentation">
+				<div class="row">
+					<div class="col-sm-12">
+						<h2>Prezentacja skryptu publikujacego</h2>
+						<p>Przeciągnij kontener aby zmienić jego szerokość.</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<div class="panel panel-default" style="resize:horizontal; overflow:hidden">
+							<div class="panel-heading">Kontener skryptu publikującego</div>
+							<div class="panel-body">
+								<script src="http://WMPlayer.net/WMPlayerDeployer"
+									data-template='default'
+									data-config='{"volume" : 0.5, "autoplay" : false, "loop": true}'
+									data-playlist='[
+										{"title":"Carefree","Url":"http://wmplayer.net/music/Carefree.mp3"},
+										{"title":"Inspired","Url":"http://wmplayer.net/music/Inspired.mp3"},
+										{"title":"Monkeys Spinning Monkeys","Url":"http://wmplayer.net/music/Monkeys%20Spinning%20Monkeys.mp3"},
+										{"title":"Sneaky Snitch","Url":"http://wmplayer.net/music/Sneaky%20Snitch.mp3"},
+										{"title":"The Complex","Url":"http://wmplayer.net/music/The%20Complex.mp3"}
+										]'>
+								</script>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<p>Wykorzystano utwory Kevina McLeoda <a href="http://incompetech.com/" target="_blank">http://incompetech.com/</a> – <i>Carefree</i>, <i>Inspired</i>, <i>Monkeys Spinning Monkeys</i>, <i>Sneaky Snitch</i>, <i>The Complex</i>, na licencji Creative Commons - Uznanie autorstwa 3.0 (CC BY 3.0)</p>
+						<p><a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">http://creativecommons.org/licenses/by/3.0/</a></p>
+					</div>
+				</div>
+			</section>
+            -->
+			<!--Kreator skryptu konfigurującego-->
+			<section class="tab-pane fade" id="deploymentScriptCreator">
+                <h2>Setup wizard</h2>
+				<nav>
+					<ul class="nav nav-tabs hidden-xs">
+						<li class="active"><a href="#setupTemplate" data-toggle="tab">Choose template</a></li>
+						<li><a href="#setupPlaylist" data-toggle="tab">Playlist</a></li>
+						<li><a href="#setupConfig" data-toggle="tab">Options</a></li>
+					</ul>
+				</nav>
+				<div class="container-fluid setup-container tab-content">
+					<!--Wybór szablonu-->
+					<div id="setupTemplate" class="tab-pane fade in active">
+						<div class="row">
+							<div class="col-sm-12">
+								<h4>Wybór szablonu</h4>
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="radio">
+											<label><input type="radio" name="setupTemplate" value="default" checked/> Default</label>
+										</div>
+										<div class="radio">
+											<label><input type="radio" name="setupTemplate" value="material"/> Material</label>
+										</div>
+                                        <div class="radio">
+											<label><input type="radio" name="setupTemplate" value="freshjamz"/> FRESHjamz</label>
+										</div>
+									</div>
+									<div class="col-sm-6 text-right text-center-xs">
+										<img class="img-responsive" src="images/default.png" alt="Default" data-template="default"/>
+										<img class="img-responsive"src="images/material.png" alt="Material" data-template="material"/>
+                                        <img class="img-responsive"src="images/freshjamz.png" alt="FRESHjamz" data-template="freshjamz"/>
+									</div>
+								</div>
+								<nav class="row setup-nav hidden visible-xs">
+									<div class="col-sm-12 text-right">
+										<a href="#setupPlaylist" class="btn btn-primary" data-toggle="tab" aria-expanded="true">Next</a>
+									</div>
+								</nav>
+							</div>
+						</div>
+					</div>
+					<!--Lista odtwarzania-->
+					<div id="setupPlaylist" class="tab-pane fade">
+                        <audio id="setupAudio"></audio>
+						<div class="row">
+							<div class="col-sm-12">
+								<h4>Playlist</h4>
+                                <div class="setup-playlist">
+									<div class="row setup-playlist-position">
+										<div class="col-sm-5">
+											<div class="input-group input-group-xs no-addon-xs form-group">
+												<input type="text" name="setupPlaylistTitle" placeholder="Track title" class="form-control" />
+												<div class="input-group-btn visible-xs">
+													<button class="btn btn-primary glyphicon glyphicon-play setup-play" ></button>
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-5">
+											<div class="input-group input-group-xs no-addon-xs form-group">
+												<input type="url" name="setupPlaylistUrl" placeholder="Track URL" class="form-control" />
+												<div class="input-group-btn visible-xs">
+													<button class="btn btn-danger glyphicon glyphicon-trash setup-remove"></button>
+												</div>
+											</div>
+										</div>
+										<div class="col-sm-2 hidden-xs text-right">
+											<button class="btn btn-primary glyphicon glyphicon-play setup-play"></button>
+											<button class="btn btn-danger glyphicon glyphicon-trash setup-remove"></button>
+										</div>
+									</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 text-right setup-nav">
+                                        <button class="btn btn-success glyphicon glyphicon-plus setup-add"></button>
+                                    </div>
+                                </div>
+							</div>
+						</div>
+						<nav class="row setup-nav hidden visible-xs">
+							<div class="col-xs-6">
+								<a href="#setupTemplate" class="btn btn-primary" data-toggle="tab" aria-expanded="true">Back</a>
+							</div>
+							<div class="col-xs-6 text-right">
+								<a href="#setupConfig" class="btn btn-primary" data-toggle="tab" aria-expanded="true">Next</a>
+							</div>
+						</nav>
+					</div>
+                    <!--opcje odtwarzacza-->
+                    <div id="setupConfig" class="tab-pane fade">
+                        <div class="row">
+							<div class="col-sm-12">
+								<h4>Options</h4>
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="checkbox">
+											<label><input type="checkbox" name="setupAutoplay"/> Autoplay</label>
+										</div>
+										<div class="checkbox">
+											<label><input type="checkbox" name="setupLoop"/> Repeat playlist</label>
+										</div>
+                                        <div class="form-group">
+                                            <label>Volume</label>
+                                            <div class="volume">
+                                                <input name="setupVolume" class="form-control volume" type="range" min="0" max="100" value="100" />
+                                                <div class="volumeValue setupVolumeValue">100</div>
+                                            </div>
+                                        </div>
+									</div>
+								</div>
+								<nav class="row setup-nav">
+									<div class="col-sm-6 col-xs-6">
+										<a href="#setupPlaylist" class="btn btn-primary hidden visible-xs" data-toggle="tab" aria-expanded="true">Back</a>
+									</div>
+									<div class="col-xs-6 text-right">
+										<button id="setupGenerate" class="btn btn-success">Generate script</button>
+									</div>
+								</nav>
+							</div>
+						</div>
+                    </div>
+				</div>
+			</section>
+		</div>
+	</div>
+	<footer class="footer-inverse">
+		<div class="container text-center">
+			<span>&copy; Marcin Walczak 2016-2017</span>
+		</div>
+	</footer>
+	
+	<!--Szablony-->
+	<div class="hidden">
+		<div id="classic">
+			<div class="classic">
+				<a class="wmp-logo" href="http://wmplayer.net" target="_blank">wmplayer</a>
+				<div class="currentTrackData">
+					<span class="wmp-current-track-title">N/A</span>
+					<div class="timer">
+						<span class="wmp-current-track-time">0:00</span>/<span class="wmp-current-track-duration">0:00</span>
+					</div>
+					<div class="clear-fix"></div>
+				</div>
+				<div class="controlPanel">
+					<div class="control-buttons">
+						<svg  class="wmp-play wmp-button" width="25" height="25">
+							<defs>
+								<filter id="filter-blur">
+									<feOffset result="offOut" in="SourceGraphic" dx="0" dy="0"/>
+									<feGaussianBlur result="blurOut" in="offOut" stdDeviation="1" />
+									<feBlend in="SourceGraphic" in2="blurOut" mode="normal" />
+								</filter>
+							</defs>
+							<g class="play" style="transform: translate(3px,3px);">
+								<polygon class="shadow" points="0,0 20,10 0,20" filter="url(#filter-blur)"/>
+								<polygon class="symbol" points="0,0 20,10 0,20"/>
+							</g>
+
+							<g class="pause" style="transform: translate(3px,3px);">
+								<rect class="shadow"  x="0" y="0" width="7" height="20" filter="url(#filter-blur)"/>
+								<rect class="shadow"  x="13" y="0" width="7" height="20" filter="url(#filter-blur)"/>
+								<rect class="symbol"  x="0" y="0" width="7" height="20"/>
+								<rect class="symbol"  x="13" y="0" width="7" height="20"/>
+								<rect  x="0" y="0" width="20" height="20" fill="transparent"/>
+							</g>
+						</svg>
+						<svg  class="wmp-stop wmp-button" width="25" height="25">
+							<g style="transform: translate(3px,3px);">
+								<rect class="shadow"  x="0" y="0" width="20" height="20" filter="url(#filter-blur)"/>
+								<rect class="symbol"  x="0" y="0" width="20" height="20"/>
+							</g>
+						</svg>
+						<svg class="wmp-rewind wmp-button" width="25" height="25">
+							<g class="bwr" style="transform: translate(3px,3px);">
+								<polygon class="shadow" points="0,10 10,0 10,10 20,0 20,20 10,10 10,20" filter="url(#filter-blur)"/>
+								<polygon class="symbol" points="0,10 10,0 10,10 20,0 20,20 10,10 10,20"/>
+							</g>
+						</svg>
+						<svg  class="wmp-fast-forward wmp-button" width="25" height="25">
+							<g class="fwd" style="transform: translate(3px,3px);">
+								<polygon class="shadow" points="0,0 10,10 10,0 20,10 10,20 10,10 0,20" filter="url(#filter-blur)"/>
+								<polygon class="symbol" points="0,0 10,10 10,0 20,10 10,20 10,10 0,20"/>
+							</g>
+						</svg>
+					</div>
+					<div class="volume">
+						<svg  width="25" height="25">
+							<g style="transform: translate(3px,3px);">
+								<polygon class="symbol" points="0,6 5,6 15,0 15,20 5,13 0,13 " />
+								<path class="symbol" d="M17,2 Q25,10 17,18" fill="transparent" stroke-width="1"/>
+								<path class="symbol" d="M17,5 Q20,10 17,15" fill="transparent" stroke-width="1"/>
+							</g>
+						</svg>
+						<div class="wmp-volume-bar-container">
+							<div class="wmp-volume-bar"></div>
+						</div>
+					</div>
+				</div>
+				<div>
+					<div class="wmp-progress-bar-container">
+						<div class="wmp-progress-bar"></div>
+					</div>
+				</div>
+				<div class="playlistContainer">
+					<div class="wmp-playlist-container">
+						<div class="wmp-playlist"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="default">
+			<div class="wmp-panel">
+				<div class="wmp-current-track">
+					<span class="wmp-current-track-title"></span>
+					<span class="wmp-timer">
+						<span class="wmp-current-track-time">0:00</span>
+						<span class="wmp-current-track-duration">N/A</span>
+					</span>
+				</div>
+				<div class="wmp-controls">
+					<div class="wmp-play wmp-button">
+						<svg class="wmp-button-play" width="18" height="18">
+							<polygon class="wmp-symbol-play" points="2,2 16,9 2,16"/>
+							<g class="wmp-symbol-pause">
+								<rect x="2" y="2" width="4" height="14" />
+								<rect x="11" y="2" width="4" height="14" />
+								<rect x="2" y="2" width="14" height="14" fill="transparent" stroke="transparent"/>
+							</g>
+						</svg>
+					</div>
+					<div class="wmp-stop wmp-button">
+						<svg class="wmp-button-stop" width="18" height="18">
+							<rect class="wmp-symbol-stop" x="2" y="2" width="14" height="14"/>
+						</svg>
+					</div>
+					<div class="wmp-rewind wmp-button">
+						<svg class="wmp-button-rewind" width="18" height="18">
+							<polygon class="wmp-symbol-rewind" points="2,9 9,2 9,9 16,2 16,16 9,9 9,16"/>
+						</svg>
+					</div>
+					<div class="wmp-fast-forward wmp-button">
+						<svg class="wmp-button-fast-forward" width="18" height="18">
+							<polygon class="wmp-symbol-fast-forward" points="2,2 9,9 9,2 16,9 9,16 9,8 2,16"/>
+						</svg>
+					</div>
+				</div>
+				<div class="wmp-volume-bar-container">
+					<div class="wmp-button wmp-mute">
+						<svg width="18" height="18">
+							<g class="wmp-button-volume">
+								<polygon points="2,6 5,6 10,2 10,16 5,12 2,12 " />
+								<g class="wmp-symbol-muted"><path d="M12,4 Q18,9 12,14" fill="transparent" />
+									<path d="M12,7 Q14,9 12,11" fill="transparent" />
+								</g>
+							</g>
+						</svg>
+					</div>
+					<div class="wmp-volume-bar"></div>
+				</div>
+				<div class="wmp-progress-bar-container">
+					<div class="wmp-progress-bar"></div>
+				</div>
+			</div>
+			<div class="wmp-playlist-container">
+				<div class="wmp-playlist"></div>
+			</div>
+			<script>
+				var toggleVolume = function($e){
+					var element = $e;
+					while((element = element.parentElement) && !element.classList.contains('WMPlayer'));
+					element.getElementsByClassName("volume")[0].classList.toggle('active');
+					element.getElementsByClassName("volume-bar-container")[0].classList.toggle('active');
+				}
+			</script>
+		</div>
+	</div>
+    <!--okna modalne-->
+	<!--modal błędu-->
+    <div id="modalError" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header bg-danger-solid">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Error</h4>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+	<div id="modalDeploymentScript" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header bg-success-solid">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Your WMPlayer script has been successfully generated.</h4>
+					<p>Paste the code into your HTML code in place, you want player to deploy.</p>
+				</div>
+				<div class="modal-body">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+	<script src="js/WMPlayer/WMPlayer.min.js"></script>
+	<script src="js/WMPlayer/WMPlayerDeploymentScriptGenerator.js?v=20170715"></script>
+	<script src="js/WMPlayerPresentation.js?v=201706042239"></script>
+	<script src="js/WMPlayerSetup.js?v=201706042239"></script>
+</body>
+</html>

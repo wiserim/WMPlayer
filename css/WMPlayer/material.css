@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&subset=latin-ext');
+
+.WMPlayer .material {background-color:#fff;padding: 15px 0 0; box-shadow: 0 1px  10px -1px #636363; position:relative;}
+.WMPlayer .material * {box-sizing: border-box;}
+.WMPlayer .material .panel-left {display:inline-block; float:left;width:114px;padding-left:14px;}
+.WMPlayer .material .panel-center {display:inline-block; width:calc(100% - 248px);}
+.WMPlayer .material .panel-right{display:inline-block; float:right;width:134px;padding-right:14px;text-align:right;position:relative;}
+.WMPlayer .material .WMP-currentTrackTitle {display:inline-block; width:100%; font-family: 'Roboto', sans-serif; font-size:13px; line-height:20px; vertical-align:middle; color:rgba(0,0,0,0.87); overflow:hidden;white-space: nowrap;text-overflow: ellipsis;}
+.WMPlayer .material .timer {display:inline-block; font-family: 'Roboto', sans-serif; font-size:13px; line-height:20px; vertical-align:middle; color:rgba(0,0,0,0.87);margin-right:25px;}
+.WMPlayer .material .symbol {stroke:#7f7f7f; fill:#7f7f7f; stroke-linecap:round;stroke-width:2;stroke-linejoin:round; transition: stroke 0.25s, fill 0.25s;}
+.WMPlayer .material path.symbol {fill:transparent;stroke-width:1;}
+.WMPlayer .material .WMP-button {cursor:pointer;}
+.WMPlayer .material .WMP-button svg {display:inline-block;vertical-align:middle;position:relative;transform:translate(0,50%);}
+.WMPlayer .material .WMP-button:hover .symbol, .WMPlayer .material .WMP-button:focus .symbol {stroke:#304ffe; fill:#304ffe;}
+.WMPlayer .material .WMP-button:hover path.symbol {fill:transparent;}
+.WMPlayer .material .WMP-button.active .symbol {stroke:#304ffe; fill:#304ffe;}
+.WMPlayer .material .WMP-button.active  path.symbol {fill:transparent;}
+
+.WMPlayer .material .WMP-play .pause {display:none;}
+.WMPlayer.playing .material .WMP-play .play {display:none;}
+.WMPlayer.playing .material .WMP-play .pause {display:block;}
+.WMPlayer .material .volume {position:absolute; top:50%;right:14px;transform:translate(0,-50%);}
+
+.WMPlayer .material .progress-bar-container {margin:10px 14px; height:14px; position:relative;cursor:pointer;}
+.WMPlayer .material .progress-bar-range {height:2px; background-color:rgba(0,0,0,0.5); position:absolute;top:50%;left:0;right:0;transform:translate(0,-50%);}
+.WMPlayer .material .WMP-progressBar {height:2px;background-color:#304ffe; position:absolute;top:50%;left:0;right:0;transform:translate(0,-50%);}
+.WMPlayer .material .WMP-progressBar:after {content:''; display:block; width:14px; height:14px; border-radius:14px; background-color:#304ffe; position:absolute; top:50%; right:0; transform:translate(50%, -50%);}
+
+.WMPlayer .material .volume-bar-container {height:20px; background-color:#fff;position:relative;cursor:pointer;visibility:hidden; opacity: 0;transition: visibility 0.25s, opacity 0.25s; position:absolute; top:50%; left:0; right:40px; transform:translate(0,-50%);}
+.WMPlayer .material .volume-bar-container.active {visibility: visible; opacity:1;}
+
+.WMPlayer .material .volume-bar-range {height:2px; background-color:rgba(0,0,0,0.5); position:absolute;top:50%;left:0;right:0;transform:translate(0,-50%);}
+.WMPlayer .material .WMP-volumeBar {height:2px;background-color:#304ffe; position:absolute;top:50%;left:0;right:0;transform:translate(0,-50%);}
+.WMPlayer .material .WMP-volumeBar:after {content:''; display:block; width:14px; height:14px; border-radius:14px; background-color:#304ffe; position:absolute; top:50%; right:0; transform:translate(50%, -50%);}
+
+.WMPlayer .material .WMP-playlist {width:100%; table-layout:fixed; border-collapse:collapse; border-spacing:0;}
+.WMPlayer .material .WMP-playlist tr {cursor:pointer;}
+.WMPlayer .material .WMP-playlist tr:hover {background-color:#eeeeee;}
+.WMPlayer .material .WMP-playlist .WMP-playlistCurrentTrack {background-color:#f5f5f5;}
+.WMPlayer .material .WMP-playlist .WMP-playlistError td {color:rgba(255,0,0,0.87);}
+.WMPlayer .material .WMP-playlist td {font-family: 'Roboto', sans-serif; font-size:13px; vertical-align:middle; color:rgba(0,0,0,0.87); padding:12px 9px; border-top:1px solid rgba(0,0,0,0.12);}
+.WMPlayer .material .WMP-playlist .WMP-playlistIndex {width:58px; padding-left: 24px; text-align:right;}
+.WMPlayer .material .WMP-playlist .WMP-playlistTitle {overflow:hidden;white-space: nowrap;text-overflow: ellipsis;}
+.WMPlayer .material .WMP-playlist .WMP-playlistDuration {width:64px; padding-right:14px; text-align:right;}
+
+@media only screen and (max-width: 500px) {
+    .WMPlayer .material .panel-left{float:right;width:50%;float:left;margin-bottom:14px;}
+    .WMPlayer .material .panel-center {width:100%; padding:0 14px 14px;}
+    .WMPlayer .material .panel-right{width:50%;margin-bottom:14px;}
+    .WMPlayer .material .progress-bar-container {clear:both;}
+}

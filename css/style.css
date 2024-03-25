@@ -1,0 +1,26 @@
+html, body {min-height:100%;}
+body {padding-top:50px;}
+div.volume {padding-right:40px; position:relative;}
+div.volume .volumeValue {display:block; position:absolute; bottom:0; right:0;line-height:34px;}
+.input-group-xs {display:block; float:none;}
+.input-group-xs .form-control:first-child {border-radius:4px; float:none;}
+
+.bg-danger-solid {background-color: rgb(217, 83, 79);}
+.bg-success-solid {background-color: rgb(68, 157, 68)}
+.bg-danger-solid .modal-title, .bg-danger-solid p{color:#fff;}
+.bg-success-solid .modal-title, .bg-success-solid p {color:#fff;}
+.bg-danger-solid .close, .bg-success-solid .close {color:#fff;}
+.modal-footer {background-color:#fff;}
+
+section {min-height:calc(100vh - 100px); height:100%;}
+.footer-inverse {padding:15px; background-color: rgb(34, 34, 34); color: rgb(157, 157, 157);}
+.setup-add, .setup-nav {margin-top: 15px; margin-bottom: 15px;}
+
+@media only screen and (max-width : 768px){
+    .input-group-xs {display:table;}
+    .input-group-xs .form-control:first-child {border-radius:4px; float:left;}
+    .no-addon-xs .input-group-btn:last-child > .btn {margin-left:4px; border-radius:4px;}
+    .input-group-btn.visible-xs {display:table-cell !important;}
+    .setup-playlist-position {padding-top: 15px; border-bottom:1px solid #dddddd;}
+	.text-center-xs {text-align: center;}
+}

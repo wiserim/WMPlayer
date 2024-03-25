@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css?family=Audiowide|Coda&subset=latin-ext');
+.wmplayer .classic .clear-fix {clear:both;}
+.wmplayer .classic {border:1px #333 solid; border-radius:2px; font-family:'Coda', sans-serif; color:#f8f8ff; padding:10px; background-color:#333333; box-shadow:0 5px 10px #b4b4b4 inset; cursor:default;}
+.wmplayer .classic .wmp-logo {display:inline-block; margin:3px 0 5px; font-family:'Audiowide', sans-serif; font-size:20px; font-weight:bold; text-decoration:none; color:#f8f8ff;}
+.wmplayer .classic .wmp-logo:hover {text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);}
+
+.wmplayer .classic .currentTrackData {padding:5px 5px 0; border:1px #a9a9a9 solid; border-radius:3px; background-color:#708090; font-size:16px; vaertical-align:middle;}
+.wmplayer .classic .wmp-current-track-title {display:inline-block; width:calc(100% - 125px); text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+.wmplayer .classic .timer {display:block; float:right; width:120px; text-align:right;}
+
+.wmplayer .classic .controlPanel {padding:10px 0 0; color:#ffffff;}
+.wmplayer .classic .controlPanel .control-buttons {height:20px; display:inline-block;}
+.wmplayer .classic g {cursor:pointer;}
+.wmplayer .classic .symbol{fill:#fff; stroke:#fff; stroke-width:0;}
+.wmplayer .classic path.symbol{fill:transparent; stroke-width:1;}
+.wmplayer .classic .shadow {fill:transparent;}
+.wmplayer .classic g:hover .shadow,
+.wmplayer .classic g:focus .shadow
+{fill:#fff;}
+
+.wmplayer .classic .pause {display:none;}
+.wmplayer.playing .classic .play {display:none;}
+.wmplayer.playing .classic .pause {display:block;}
+
+.wmplayer .classic .controlPanel .volume {height:25px; float:right; padding-right:57px; position:relative;}
+.wmplayer .classic .controlPanel .volume .symbol {cursor:default;}
+
+.wmplayer .classic .playlistContainer {border:1px #a9a9a9 solid; border-radius:3px; background-color:#708090; font-size:14px; padding:8px 3px;}
+.wmplayer .classic .wmp-playlist {width:100%; table-layout:fixed; border-collapse:separate; border-spacing:0;}
+.wmplayer .classic .wmp-playlist tr {cursor: pointer; padding:2px 0;}
+.wmplayer .classic .wmp-playlist tr:hover,
+.wmplayer .classic .wmp-playlist tr:focus
+{text-shadow: 0 0 5px rgba(255, 255, 255, 0.6);}
+.wmplayer .classic .wmp-playlist {display: table;}
+.wmplayer .classic .wmp-playlist .wmp-playlist-item {display: table-row;}
+.wmplayer .classic .wmp-playlist span {display: table-cell;}
+.wmplayer .classic .wmp-playlist span:nth-child(1) {text-align:right; width:25px;}
+.wmplayer .classic .wmp-playlist span:nth-child(3) {text-align:right; width:35px;}
+.wmplayer .classic .wmp-playlist .wmp-current span {border:1px solid #ffffff; box-sizing:border-box;}
+.wmplayer .classic .wmp-playlist .wmp-current span:nth-child(1) {border-right:0; border-top-left-radius:2px; border-bottom-left-radius:2px;}
+.wmplayer .classic .wmp-playlist .wmp-current span:nth-child(2) {border-left:0; border-right:0;}
+.wmplayer .classic .wmp-playlist .wmp-current span:nth-child(3) {border-left:0; border-top-right-radius:2px; border-bottom-right-radius:2px;}
+.wmplayer .classic .wmp-playlist span:nth-child(2) {text-overflow:ellipsis; white-space:nowrap; overflow:hidden;}
+.wmplayer .classic .wmp-playlist .wmp-error {color:#bb0000;}
+.wmplayer .classic .wmp-playlist .wmp-error:hover,
+.wmplayer .classic .wmp-playlist .wmp-error:focus
+{text-shadow: 0 0 5px rgba(187, 0, 0, 0.6);}
+
+.wmplayer .classic .wmp-progress-bar-container,
+.wmplayer .classic .wmp-volume-bar-container
+{background-color:#808080; border-radius:4px; cursor:pointer;}
+.wmplayer .classic .wmp-progress-bar-container {margin:10px 5px 15px;}
+.wmplayer .classic .wmp-volume-bar-container {width:50px; position:absolute; top:50%; right:5px; transform:translate(0,-50%);}
+
+.wmp-progress-bar, .wmp-volume-bar {height:8px; background-color:#f5f5f5; border-radius:4px; position:relative;}
+.wmp-progress-bar:after, .wmp-volume-bar:after
+{content:''; display:block; width:16px; height:16px; border-radius:50%; background-color:#ffffff; position:absolute; top:50%; right:0; transform:translate(50%, -50%);}
+
+@media only screen and (max-width: 320px) {
+    .wmplayer .classic .wmp-currentTrackTitle {width:100%;}
+}
