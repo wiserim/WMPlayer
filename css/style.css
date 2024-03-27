@@ -1,4 +1,4 @@
-html, body {min-height:100%;}
+html, body {min-height:100%; scroll-behavior: smooth; scroll-padding-top: 50px;}
 body {padding-top:50px;}
 div.volume {padding-right:40px; position:relative;}
 div.volume .volumeValue {display:block; position:absolute; bottom:0; right:0;line-height:34px;}
@@ -12,7 +12,6 @@ div.volume .volumeValue {display:block; position:absolute; bottom:0; right:0;lin
 .bg-danger-solid .close, .bg-success-solid .close {color:#fff;}
 .modal-footer {background-color:#fff;}
 
-section {min-height:calc(100vh - 100px); height:100%;}
 .footer-inverse {padding:15px; background-color: rgb(34, 34, 34); color: rgb(157, 157, 157);}
 .setup-add, .setup-nav {margin-top: 15px; margin-bottom: 15px;}
 

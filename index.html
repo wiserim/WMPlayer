@@ -32,337 +32,173 @@
 			</div>
 			<div class="collapse navbar-collapse" id="navbar">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="#start" data-toggle="tab">Start</a></li>
-					<li><a href="#playerPresentation" data-toggle="tab">Demo</a></li>
-					<!--<li><a href="#deploymentScriptCreator" data-toggle="tab">Setup</a></li>-->
+					<li><a href="#about">About</a></li>
+					<li><a href="#demo">Demo</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
 	<div class="container fill">
-		<div class="tab-content">
-			<section class="tab-pane fade in active" id="start">
-				<div class="row">
-					<div class="col-sm-12">
-						<h1>
-                            WMPlayer
-                            <p style="font-size: 14px;"><strong>Responsive music player for your website</strong></p>
-                        </h1>
-                        <p>WMPlyer is a free, open source web music player. </p>
-                        <p>Features:</p>
-                        <ul>
-                            <li><strong>Full player control</strong> - Play, pause, stop, next, previous, fast forward, rewind, seek, volume and loop mode</li>
-                            <li><strong>Dynamic playlist</strong> - Make your own playlist without any problem</li>
-                            <li><strong>Customizable templates</strong> - Use one of available templates or create your own</li>
-                            <li><strong>Easy to deploy</strong> - Dock player wherever you want on site</li>
-                            <li><strong>Setup wizard</strong> - Create your own WMPlayer with ease</li>
-                        </ul>
-					</div>
+		<section id="about">
+			<div class="row">
+				<div class="col-sm-12">
+					<h1>
+	                    WMPlayer
+	                    <p style="font-size: 14px;"><strong>Responsive music player for your website</strong></p>
+	                </h1>
+	                <p>WMPlyer is a free, open source web music player. </p>
+	                <p>Features:</p>
+	                <ul>
+	                    <li><strong>Full player control</strong> - Play, pause, stop, next, previous, fast forward, rewind, seek, volume and loop mode</li>
+	                    <li><strong>Dynamic playlist</strong> - Make your own playlist without any problem</li>
+	                    <li><strong>Customizable templates</strong> - Use one of available templates or create your own</li>
+	                    <li><strong>Easy to deploy</strong> - Dock player wherever you want on site</li>
+	                    <li><strong>Setup wizard</strong> - Create your own WMPlayer with ease</li>
+	                </ul>
 				</div>
-			</section>
-			<!--Prezentacja aplikacji WMPlayer-->
-			<section class="tab-pane fade" id="playerPresentation">
-				<div class="row">
-					<div class="col-sm-12">
-						<h2>Demo</h2>
-						<p>Click "Start" to launch player.</p>
-					</div>
+			</div>
+		</section>
+		
+		<section id="demo">
+			<div class="row">
+				<div class="col-sm-12">
+					<h2>Demo</h2>
+					<p>Click "Start" to launch player.</p>
 				</div>
-				<div class="row">
-					<!--panel kontrolny-->
-					<div class="col-sm-6 col-sm-push-6">
-						<div class="panel panel-default">
-							<div class="panel-heading">Options</div>
-							<div class="panel-body">
-								<div class="form-group">
-									<button id="playerStart" class="btn btn-primary">Start</button>
+			</div>
+			<div class="row">
+				<!--panel kontrolny-->
+				<div class="col-sm-6 col-sm-push-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">Options</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<button id="playerStart" class="btn btn-primary">Start</button>
+							</div>
+							<div class="form-group">
+								<label>Template</label>
+								<select id="setTemplate" class="form-control">
+									<option value="default" selected="selected">Default</option>
+									<option value="default-dark">Default dark</option>
+									<option value="classic">Classic</option>
+								</select>
+							</div>
+							
+							<div class="form-group">
+								<label>Player's container</label><br/>
+								<select id="setContainer" class="form-control">
+									<option value="container-1" selected>Container 1</option>
+									<option value="container-2">Container 2</option>
+								</select>
+							</div>
+							
+							<div class="checkbox">
+								<label>
+									<input id="setAutoplay" type="checkbox"> Autoplay
+								</label>
+							</div>
+							<div class="checkbox">
+								<label>
+									<input id="setLoop" type="checkbox"> Loop
+								</label>
+							</div>
+							<div class="form-group">
+								<label>Volume</label>
+								<div class="volume">
+									<input id="setVolume" name="setVolume" class="form-control volume" type="range" min="0" max="100" value="100" />
+									<div class="volumeValue setVolumeValue">100</div>
 								</div>
-								<div class="form-group">
-									<label>Template</label>
-									<select id="setTemplate" class="form-control">
-										<option value="default" selected="selected">Default</option>
-										<option value="default-dark" selected="selected">Default dark</option>
-										<option value="classic">Classic</option>
-									</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="panel panel-default">
+						<div class="panel-heading">Track selection</div>
+						<div class="panel-body">
+							 <div class="form-group">
+								<label>Select track</label>
+								<select id="setTrack" class="form-control">
+									<option value="first">1</option>
+									<option value="2">2</option>
+									<option value="3">3</option>
+									<option value="4">4</option>
+								</select>
+							</div>
+						</div>
+					</div>
+					
+					<div class="panel panel-default">
+						<div class="panel-heading">Add track</div>
+						<div class="panel-body">
+							<div class="form-group">
+								<label>Track title</label>
+								<input type="text" id="addTrackTitle" placeholder="Track title" class="form-control"/>
+							</div>
+							<div class="form-group">
+								<label>Track URL</label>
+								<input type="text" id="addTrackUrl" placeholder="Track URL" class="form-control"/>
+							</div>
+							<div class="form-group">
+								<button id="addTrack" class="btn btn-primary">Add track</button>
+							</div>
+						</div>
+					</div>
+					
+					<div class="panel panel-default">
+						<div class="panel-heading">Remove track</div>
+						<div class="panel-body">
+							 <label> Select track to remove</label>
+							 <div class="row">
+								<div class="col-sm-8">
+									<div class="form-group">
+										<select id="deleteTrackPosition" class="form-control">
+											<option value="last">Last</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+										</select>
+									</div>
 								</div>
-								
-								<div class="form-group">
-									<label>Player's container</label><br/>
-									<select id="setContainer" class="form-control">
-										<option value="container-1" selected>Container 1</option>
-										<option value="container-2">Container 2</option>
-									</select>
-								</div>
-								
-								<div class="checkbox">
-									<label>
-										<input id="setAutoplay" type="checkbox"> Autoplay
-									</label>
-								</div>
-								<div class="checkbox">
-									<label>
-										<input id="setLoop" type="checkbox"> Loop
-									</label>
-								</div>
-								<div class="form-group">
-									<label>Volume</label>
-									<div class="volume">
-										<input id="setVolume" name="setVolume" class="form-control volume" type="range" min="0" max="100" value="100" />
-										<div class="volumeValue setVolumeValue">100</div>
+								<div class="col-sm-4">
+									<div class="form-group">
+										<button id="deleteTrack" class="btn btn-primary">Remove track</button>
 									</div>
 								</div>
 							</div>
 						</div>
-						
-						<div class="panel panel-default">
-							<div class="panel-heading">Track selection</div>
-							<div class="panel-body">
-								 <div class="form-group">
-									<label>Select track</label>
-									<select id="setTrack" class="form-control">
-										<option value="first">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-									</select>
-								</div>
-							</div>
+					</div>
+				</div>
+				<!--kontenery aplikacji-->
+				<div class="col-sm-6 col-sm-pull-6">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							Container 1
 						</div>
-						
-						<div class="panel panel-default">
-							<div class="panel-heading">Add track</div>
-							<div class="panel-body">
-								<div class="form-group">
-									<label>Track title</label>
-									<input type="text" id="addTrackTitle" placeholder="Track title" class="form-control"/>
-								</div>
-								<div class="form-group">
-									<label>Track URL</label>
-									<input type="text" id="addTrackUrl" placeholder="Track URL" class="form-control"/>
-								</div>
-								<div class="form-group">
-									<button id="addTrack" class="btn btn-primary">Add track</button>
-								</div>
-							</div>
-						</div>
-						
-						<div class="panel panel-default">
-							<div class="panel-heading">Remove track</div>
-							<div class="panel-body">
-								 <label> Select track to remove</label>
-								 <div class="row">
-									<div class="col-sm-8">
-										<div class="form-group">
-											<select id="deleteTrackPosition" class="form-control">
-												<option value="last">Last</option>
-												<option value="1">1</option>
-												<option value="2">2</option>
-												<option value="3">3</option>
-												<option value="4">4</option>
-											</select>
-										</div>
-									</div>
-									<div class="col-sm-4">
-										<div class="form-group">
-											<button id="deleteTrack" class="btn btn-primary">Remove track</button>
-										</div>
-									</div>
-								</div>
-							</div>
+						<div id="container-1" class="panel-body">
 						</div>
 					</div>
-					<!--kontenery aplikacji-->
-					<div class="col-sm-6 col-sm-pull-6">
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								Container 1
-							</div>
-							<div id="container-1" class="panel-body">
-							</div>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							Container 2
 						</div>
-						<div class="panel panel-default">
-							<div class="panel-heading">
-								Container 2
-							</div>
-							<div id="container-2" class="panel-body">
-							</div>
+						<div id="container-2" class="panel-body">
 						</div>
 					</div>
 				</div>
-				
-				<div class="row">
-					<div class="col-sm-12">
-						<p><i>Carefree</i>, <i>Inspired</i>, <i>Monkeys Spinning Monkeys</i>, <i>Sneaky Snitch</i>, <i>The Complex</i> - Kevin MacLeod (<a href="http://incompetech.com/" target="_blank">http://incompetech.com/</a>)</p>
-                        <p>Licensed under Creative Commons: By Attribution 3.0 License <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">http://creativecommons.org/licenses/by/3.0/</a></p>
-					</div>
-				</div>
-			</section>
+			</div>
 			
-			<!--Prezentacja skryptu publikujacego-->
-            <!--
-			<section class="tab-pane fade" id="deploymentScriptPresentation">
-				<div class="row">
-					<div class="col-sm-12">
-						<h2>Prezentacja skryptu publikujacego</h2>
-						<p>Przeciągnij kontener aby zmienić jego szerokość.</p>
-					</div>
+			<div class="row">
+				<div class="col-sm-12">
+					<p><i>Carefree</i>, <i>Inspired</i>, <i>Monkeys Spinning Monkeys</i>, <i>Sneaky Snitch</i>, <i>The Complex</i> - Kevin MacLeod (<a href="http://incompetech.com/" target="_blank">http://incompetech.com/</a>)</p>
+                    <p>Licensed under Creative Commons: By Attribution 3.0 License <a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">http://creativecommons.org/licenses/by/3.0/</a></p>
 				</div>
-				<div class="row">
-					<div class="col-sm-6">
-						<div class="panel panel-default" style="resize:horizontal; overflow:hidden">
-							<div class="panel-heading">Kontener skryptu publikującego</div>
-							<div class="panel-body">
-								<script src="http://WMPlayer.net/WMPlayerDeployer"
-									data-template='default'
-									data-config='{"volume" : 0.5, "autoplay" : false, "loop": true}'
-									data-playlist='[
-										{"title":"Carefree","Url":"http://wmplayer.net/music/Carefree.mp3"},
-										{"title":"Inspired","Url":"http://wmplayer.net/music/Inspired.mp3"},
-										{"title":"Monkeys Spinning Monkeys","Url":"http://wmplayer.net/music/Monkeys%20Spinning%20Monkeys.mp3"},
-										{"title":"Sneaky Snitch","Url":"http://wmplayer.net/music/Sneaky%20Snitch.mp3"},
-										{"title":"The Complex","Url":"http://wmplayer.net/music/The%20Complex.mp3"}
-										]'>
-								</script>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-sm-12">
-						<p>Wykorzystano utwory Kevina McLeoda <a href="http://incompetech.com/" target="_blank">http://incompetech.com/</a> – <i>Carefree</i>, <i>Inspired</i>, <i>Monkeys Spinning Monkeys</i>, <i>Sneaky Snitch</i>, <i>The Complex</i>, na licencji Creative Commons - Uznanie autorstwa 3.0 (CC BY 3.0)</p>
-						<p><a href="http://creativecommons.org/licenses/by/3.0/" target="_blank">http://creativecommons.org/licenses/by/3.0/</a></p>
-					</div>
-				</div>
-			</section>
-            -->
-			<!--Kreator skryptu konfigurującego-->
-			<section class="tab-pane fade" id="deploymentScriptCreator">
-                <h2>Setup wizard</h2>
-				<nav>
-					<ul class="nav nav-tabs hidden-xs">
-						<li class="active"><a href="#setupTemplate" data-toggle="tab">Choose template</a></li>
-						<li><a href="#setupPlaylist" data-toggle="tab">Playlist</a></li>
-						<li><a href="#setupConfig" data-toggle="tab">Options</a></li>
-					</ul>
-				</nav>
-				<div class="container-fluid setup-container tab-content">
-					<!--Wybór szablonu-->
-					<div id="setupTemplate" class="tab-pane fade in active">
-						<div class="row">
-							<div class="col-sm-12">
-								<h4>Wybór szablonu</h4>
-								<div class="row">
-									<div class="col-sm-6">
-										<div class="radio">
-											<label><input type="radio" name="setupTemplate" value="default" checked/> Default</label>
-										</div>
-										<div class="radio">
-											<label><input type="radio" name="setupTemplate" value="material"/> Material</label>
-										</div>
-                                        <div class="radio">
-											<label><input type="radio" name="setupTemplate" value="freshjamz"/> FRESHjamz</label>
-										</div>
-									</div>
-									<div class="col-sm-6 text-right text-center-xs">
-										<img class="img-responsive" src="images/default.png" alt="Default" data-template="default"/>
-										<img class="img-responsive"src="images/material.png" alt="Material" data-template="material"/>
-                                        <img class="img-responsive"src="images/freshjamz.png" alt="FRESHjamz" data-template="freshjamz"/>
-									</div>
-								</div>
-								<nav class="row setup-nav hidden visible-xs">
-									<div class="col-sm-12 text-right">
-										<a href="#setupPlaylist" class="btn btn-primary" data-toggle="tab" aria-expanded="true">Next</a>
-									</div>
-								</nav>
-							</div>
-						</div>
-					</div>
-					<!--Lista odtwarzania-->
-					<div id="setupPlaylist" class="tab-pane fade">
-                        <audio id="setupAudio"></audio>
-						<div class="row">
-							<div class="col-sm-12">
-								<h4>Playlist</h4>
-                                <div class="setup-playlist">
-									<div class="row setup-playlist-position">
-										<div class="col-sm-5">
-											<div class="input-group input-group-xs no-addon-xs form-group">
-												<input type="text" name="setupPlaylistTitle" placeholder="Track title" class="form-control" />
-												<div class="input-group-btn visible-xs">
-													<button class="btn btn-primary glyphicon glyphicon-play setup-play" ></button>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-5">
-											<div class="input-group input-group-xs no-addon-xs form-group">
-												<input type="url" name="setupPlaylistUrl" placeholder="Track URL" class="form-control" />
-												<div class="input-group-btn visible-xs">
-													<button class="btn btn-danger glyphicon glyphicon-trash setup-remove"></button>
-												</div>
-											</div>
-										</div>
-										<div class="col-sm-2 hidden-xs text-right">
-											<button class="btn btn-primary glyphicon glyphicon-play setup-play"></button>
-											<button class="btn btn-danger glyphicon glyphicon-trash setup-remove"></button>
-										</div>
-									</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-12 text-right setup-nav">
-                                        <button class="btn btn-success glyphicon glyphicon-plus setup-add"></button>
-                                    </div>
-                                </div>
-							</div>
-						</div>
-						<nav class="row setup-nav hidden visible-xs">
-							<div class="col-xs-6">
-								<a href="#setupTemplate" class="btn btn-primary" data-toggle="tab" aria-expanded="true">Back</a>
-							</div>
-							<div class="col-xs-6 text-right">
-								<a href="#setupConfig" class="btn btn-primary" data-toggle="tab" aria-expanded="true">Next</a>
-							</div>
-						</nav>
-					</div>
-                    <!--opcje odtwarzacza-->
-                    <div id="setupConfig" class="tab-pane fade">
-                        <div class="row">
-							<div class="col-sm-12">
-								<h4>Options</h4>
-								<div class="row">
-									<div class="col-sm-6">
-										<div class="checkbox">
-											<label><input type="checkbox" name="setupAutoplay"/> Autoplay</label>
-										</div>
-										<div class="checkbox">
-											<label><input type="checkbox" name="setupLoop"/> Repeat playlist</label>
-										</div>
-                                        <div class="form-group">
-                                            <label>Volume</label>
-                                            <div class="volume">
-                                                <input name="setupVolume" class="form-control volume" type="range" min="0" max="100" value="100" />
-                                                <div class="volumeValue setupVolumeValue">100</div>
-                                            </div>
-                                        </div>
-									</div>
-								</div>
-								<nav class="row setup-nav">
-									<div class="col-sm-6 col-xs-6">
-										<a href="#setupPlaylist" class="btn btn-primary hidden visible-xs" data-toggle="tab" aria-expanded="true">Back</a>
-									</div>
-									<div class="col-xs-6 text-right">
-										<button id="setupGenerate" class="btn btn-success">Generate script</button>
-									</div>
-								</nav>
-							</div>
-						</div>
-                    </div>
-				</div>
-			</section>
-		</div>
+			</div>
+		</section>
 	</div>
 	<footer class="footer-inverse">
 		<div class="container text-center">
-			<span>&copy; Marcin Walczak 2016-2017</span>
+			<span>&copy; Marcin Walczak 2016-2024</span>
 		</div>
 	</footer>
 	

@@ -3,17 +3,10 @@ $(document).ready(function(){
 	//utworzenie, konfiguracja i uruchomienie aplikacji
 	var player = new WMPlayer(document.getElementById('container-1'));  //utworzenie aplikacji i ustawienie jej kontenera
 	//dodanie przykładowych plików audio do listy odtwarzania
-	/*
-    player.addAudioTrack('http://incompetech.com/music/royalty-free/mp3-royaltyfree/Carefree.mp3', 'Carefree');
-	player.addAudioTrack('http://incompetech.com/music/royalty-free/mp3-royaltyfree/Inspired.mp3', 'Inspired');
-	player.addAudioTrack('http://incompetech.com/music/royalty-free/mp3-royaltyfree/Monkeys%20Spinning%20Monkeys.mp3', 'Monkeys Spinning Monkeys');
-	player.addAudioTrack('http://incompetech.com/music/royalty-free/mp3-royaltyfree/Sneaky%20Snitch.mp3', 'Inspired');
-	player.addAudioTrack('http://incompetech.com/music/royalty-free/mp3-royaltyfree/The%20Complex.mp3', 'The Complex');
-	*/
-	player.addTrack('http://mwalczak.usermd.net/wmplayer/music/Carefree.mp3', 'Carefree');
-	player.addTrack('http://mwalczak.usermd.net/wmplayer/music/Inspired.mp3', 'Inspired');
-	player.addTrack('http://mwalczak.usermd.net/wmplayer/music/Monkeys%20Spinning%20Monkeys.mp3', 'Monkeys Spinning Monkeys');
-	player.addTrack('http://mwalczak.usermd.net/wmplayer/music/The%20Complex.mp3', 'The Complex');
+	player.addTrack('https://wiserim.github.io/WMPlayer/music/Carefree.mp3', 'Carefree');
+	player.addTrack('https://wiserim.github.io/WMPlayer/music/Inspired.mp3', 'Inspired');
+	player.addTrack('https://wiserim.github.io/WMPlayer/music/Monkeys%20Spinning%20Monkeys.mp3', 'Monkeys Spinning Monkeys');
+	player.addTrack('https://wiserim.github.io/WMPlayer/music/The%20Complex.mp3', 'The Complex');
 
 	//uruchomienie aplikacji
 	$('#playerStart').click(function(){player.start();});
