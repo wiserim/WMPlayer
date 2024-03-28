@@ -15,6 +15,9 @@ div.volume .volumeValue {display:block; position:absolute; bottom:0; right:0;lin
 .footer-inverse {padding:15px; background-color: rgb(34, 34, 34); color: rgb(157, 157, 157);}
 .setup-add, .setup-nav {margin-top: 15px; margin-bottom: 15px;}
 
+.mt-30 {margin-top: 30px;}
+.mb-30 {margin-bottom: 30px;}
+
 @media only screen and (max-width : 768px){
     .input-group-xs {display:table;}
     .input-group-xs .form-control:first-child {border-radius:4px; float:left;}
