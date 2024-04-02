@@ -1,6 +1,6 @@
 /*!
-* WMPlayer v0.8
-* Copyright 2016-2019 Marcin Walczak
+* WMPlayer v1.0.0
+* Copyright 2016-2024 Marcin Walczak
 *This file is part of WMPlayer which is released under MIT license.
 *See LICENSE for full license details.
 */
@@ -139,9 +139,12 @@ WMPlayer.prototype._Model.prototype = {
     },
     
     //add audio track
-    addAudioTrack: function($url, $title) {
+    addAudioTrack: function($url, $title, $duration) {
         if($title === undefined)
             $title = 'N/A';
+
+        if($duration === undefined)
+            $duration = 'N/A';
 
         var status = 'ready';
         var type = 'audio';
@@ -151,11 +154,31 @@ WMPlayer.prototype._Model.prototype = {
             type = 'yt';
             status = 'ready';
         }
+
+        //if duration is passed
+        if($duration !== 'N/A') {
+            //if it's integer
+            if(typeof $duration === 'number' && isFinite($duration) && Math.floor($duration) === $duration) {
+                //do nothing
+            }
+            //if it's time format: hh:mm:ss
+            else if(/^[0-9:]+$/.test($duration)) {
+                var hms = $duration.split(':');
+                var time = 0;
+                for(i=hms.length - 1; i >= hms.length; i--){
+                    time += hsm[i] * Math.pow(60, hms.length - i);
+                }
+                $duration = time;
+            }
+            else {
+                $duration = 'N/A';
+            }
+        }
         
         this.playlist.push({
             title: $title,
             url: $url,
-            duration: 'N/A',
+            duration: $duration,
             type: type,
             status: status
         });
@@ -165,7 +188,7 @@ WMPlayer.prototype._Model.prototype = {
         var index = this.playlist.length - 1;
         //get track metadata
         //if track is audio file
-        if(type == 'audio') {
+        if(type == 'audio' && $duration !== 'N/A') {
             var audio = new Audio();
             //after loading audio track metadata, get track duration
             audio.onloadedmetadata = function($e) {
@@ -188,7 +211,7 @@ WMPlayer.prototype._Model.prototype = {
             audio.load();
         }
         //if track is YouTube video
-        else if(self.playlist[index].type == 'yt') {
+        else if(self.playlist[index].type == 'yt' && $duration !== 'N/A') {
             if(!self.YTApiKey) {
                 self.playlist[index].status = 'error';
                 console.log('YouTube API Key not found.');
