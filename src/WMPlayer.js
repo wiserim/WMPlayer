@@ -1,6 +1,6 @@
 /*!
-* WMPlayer v0.8
-* Copyright 2016-2019 Marcin Walczak
+* WMPlayer v1.0.0
+* Copyright 2016-2024 Marcin Walczak
 *This file is part of WMPlayer which is released under MIT license.
 *See LICENSE for full license details.
 */
@@ -113,7 +113,7 @@ function WMPlayer($config) {
             if ($config.YTApiKey !== undefined) this.model.setYTApiKey($config.YTApiKey);
             if ($config.playlist !== undefined) {
                 $config.playlist.forEach(function($audioTrack) {
-                    self.addTrack($audioTrack.url, $audioTrack.title);
+                    self.addTrack($audioTrack.url, $audioTrack.title, $audioTrack.duration);
                 });
             }
             if ($config.showPlaylist !== undefined) this.showPlaylist($config.showPlaylist);
@@ -290,9 +290,10 @@ function WMPlayer($config) {
 
 WMPlayer.prototype = {
     //add new audio track
-    addTrack: function($url, $title) {
+    addTrack: function($url, $title, $duration) {
         if ($title === undefined) $title = "N/A";
-        this.model.addAudioTrack($url, $title);
+        if ($duration === undefined) $duration = "N/A";
+        this.model.addAudioTrack($url, $title, $duration);
         return this;
     },
 

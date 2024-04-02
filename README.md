@@ -37,6 +37,16 @@ var WMPlayer = new WMPlayer({
     {
       title: 'Song 2',
       url: 'https://www.youtube.com/watch?v=youtube_video'
+    },
+    {
+      title: 'Song 3',
+      url: 'song3.mp3',
+      duration: 210
+    },
+    {
+      title: 'Song 4',
+      url: 'song4.mp3',
+      duration: '3:30'
     }
   ]
 });
@@ -55,6 +65,16 @@ $('#player').WMPlayer({
     {
       title: 'Song 2',
       url: 'https://www.youtube.com/watch?v=youtube_video'
+    },
+    {
+      title: 'Song 3',
+      url: 'song3.mp3',
+      duration: 210
+    },
+    {
+      title: 'Song 4',
+      url: 'song4.mp3',
+      duration: '3:30'
     }
   ]
 });
@@ -70,12 +90,12 @@ $('#player').WMPlayer({
 |template|string/node/JQuery selector|Default template|Sets player's template. See [Custom templates](#custom-templates) for more informations.|
 |playlistPattern|string|Default pattern|Sets playlist pattern. See [Custom templates](#custom-templates) for more informations.|
 |controls|object|false|Sets classes of player's interactive elements. See [Custom templates](#custom-templates) for more informations.|
-|YTApiKey|string|''|YouTube API Key|
+|YTApiKey|string|''|YouTube API Key. Required to |
 |autoplay|boolean|false|Sets autoplay.|
 |loop|boolean|false|Sets playlist loop.|
 |volume|float [0-1]|1|Sets player's volume.|
 |mute|boolean|false|Sets player's mute.|
-|playlist|array|[]|Sets player's playlist. Playlist has forem: [{title: 'Song title', url: 'Song URL'}, ...]|
+|playlist|array|[]|Sets player's playlist. Playlist has forem: [{title: 'Song title', url: 'Song URL', duration: 'Song duration'}, ...]|
 |showPlaylist|boolean|true|Sets player's playlist visibility.|
 |start|boolean|true|Run player.|
 
@@ -86,8 +106,10 @@ Methods can be called and chained depending on how you initialized WMPlayer:
 ```javascript
     var player = new WMPlayer();
     player
-    .addTrack('Song', 'song.mp3')
-    .addTrack('Song 2', 'song2.mp3')
+    .addTrack('song.mp3', 'Song')
+    .addTrack('song2.mp3', 'Song 2')
+    .addTrack('song3.mp3', 'Song 3', 210)
+    .addTrack('song4.mp3', 'Song 4', '3:30')
     .autoplay();
 
 ```
@@ -96,15 +118,17 @@ Methods can be called and chained depending on how you initialized WMPlayer:
 ```javascript
     $('player').WMPlayer();
     $('player')
-    .WMPlayer('addTrack', 'Song', 'song.mp3')
-    .WMPlayer('addTrack', 'Song 2', 'song2.mp3')
+    .WMPlayer('addTrack', 'song.mp3', 'Song')
+    .WMPlayer('addTrack', 'song2.mp3', 'Song 2')
+    .WMPlayer('addTrack','song3.mp3', 'Song 3', 210)
+    .WMPlayer('addTrack','song4.mp3', 'Song 4', '3:30')
     .WMPlayer('autoplay');
 ```
 
 |Method|Arguments|Description|
 |---|---|---|
 |start()|none|Run player.|
-|addTrack(url, [title = 'N/A'])|url : string,<br/>title: string|Add audio track to playlist|
+|addTrack(url, [title = 'N/A'], [duration = 'N/A'])|url : string,<br/>title: string,<br/>duration: string/int|Add audio track to playlist|
 |removeTrack([index])|index : int|Removes position from playlist. Last playlist element is removed by default.|
 |track([index])|index : int|Play playlist element. First playlist element is played by default.|
 |nextTrack()|none|Set next track as current.|
