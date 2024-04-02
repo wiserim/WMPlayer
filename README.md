@@ -1,4 +1,4 @@
-# WMPlayer (0.8.1)
+# WMPlayer (1.0.0)
 
 Customizable HTML5 web music player.
 
@@ -90,7 +90,7 @@ $('#player').WMPlayer({
 |template|string/node/JQuery selector|Default template|Sets player's template. See [Custom templates](#custom-templates) for more informations.|
 |playlistPattern|string|Default pattern|Sets playlist pattern. See [Custom templates](#custom-templates) for more informations.|
 |controls|object|false|Sets classes of player's interactive elements. See [Custom templates](#custom-templates) for more informations.|
-|YTApiKey|string|''|YouTube API Key. Required to |
+|YTApiKey|string|''|YouTube API Key. Required to fetching position's duration|
 |autoplay|boolean|false|Sets autoplay.|
 |loop|boolean|false|Sets playlist loop.|
 |volume|float [0-1]|1|Sets player's volume.|
