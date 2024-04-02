@@ -164,11 +164,19 @@ WMPlayer.prototype._Model.prototype = {
             //if it's time format: hh:mm:ss
             else if(/^[0-9:]+$/.test($duration)) {
                 var hms = $duration.split(':');
-                var time = 0;
-                for(i=hms.length - 1; i >= hms.length; i--){
-                    time += hsm[i] * Math.pow(60, hms.length - i);
+                
+                if(hms.length === 3) {
+                    $duration = (+hms[0]) * 60 * 60 + (+hms[1]) * 60 + (+hms[2]);
                 }
-                $duration = time;
+                else if(hms.length === 2) {
+                    $duration = (+hms[0]) * 60 + (+hms[1]);
+                }
+                else if(hms.length === 1) {
+                    $duration = (+hms[0]);
+                }
+                else {
+                    $duration = 'N/A';
+                }
             }
             else {
                 $duration = 'N/A';
