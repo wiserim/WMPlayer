@@ -196,7 +196,7 @@ WMPlayer.prototype._Model.prototype = {
         var index = this.playlist.length - 1;
         //get track metadata
         //if track is audio file
-        if(type == 'audio' && $duration !== 'N/A') {
+        if(type == 'audio' && $duration === 'N/A') {
             var audio = new Audio();
             //after loading audio track metadata, get track duration
             audio.onloadedmetadata = function($e) {
@@ -219,7 +219,7 @@ WMPlayer.prototype._Model.prototype = {
             audio.load();
         }
         //if track is YouTube video
-        else if(self.playlist[index].type == 'yt' && $duration !== 'N/A') {
+        else if(self.playlist[index].type == 'yt' && ($duration === 'N/A' || $title === 'N/A' || !$title)) {
             if(!self.YTApiKey) {
                 self.playlist[index].status = 'error';
                 console.log('YouTube API Key not found.');
@@ -229,7 +229,7 @@ WMPlayer.prototype._Model.prototype = {
                 return;
             }
             
-            var url = 'https://www.googleapis.com/youtube/v3/videos?key='+self.YTApiKey+'&part=contentDetails&id='+self.playlist[index].url;
+            var url = 'https://www.googleapis.com/youtube/v3/videos?key='+self.YTApiKey+'&part=snippet,contentDetails&fields=kind,pageInfo,items(id,snippet(title),contentDetails(duration))&id='+self.playlist[index].url;
             var xhr = new XMLHttpRequest();
             // XHR for Chrome/Firefox/Opera/Safari.
             if('withCredentials' in xhr) {
@@ -262,10 +262,17 @@ WMPlayer.prototype._Model.prototype = {
 
                             for(size = self.playlist.length; i < size; i++)
                             {
-                                if(item.id.indexOf(self.playlist[i].url) >= 0 && self.playlist[i].duration == 'N/A'){
-                                    duration = self.convertYTDuration(item.contentDetails.duration);
-                                    if(duration)
-                                        self.playlist[i].duration = duration;
+                                if(item.id.indexOf(self.playlist[i].url) >= 0) {
+                                    if(self.playlist[i].duration == 'N/A'){
+                                        duration = self.convertYTDuration(item.contentDetails.duration);
+                                        if(duration)
+                                            self.playlist[i].duration = duration;
+                                    }
+
+                                    if(self.playlist[i].title == 'N/A' || !self.playlist[i].title) {
+                                        self.playlist[i].title = item.snippet.title;
+                                    }
+
                                     self.audioTrackAdded.notify();
                                 }
                             }
@@ -327,7 +334,6 @@ WMPlayer.prototype._Model.prototype = {
         }
 
         if(this.playlist.length > $index && 0 <= $index) {
-
             if(this.canPause){
                 //if current track is audio file
                 if(this.playlist[$index].type == 'audio') {
@@ -335,7 +341,8 @@ WMPlayer.prototype._Model.prototype = {
                     this.audio.load();
                 }
                 //if current track is a YouTube video
-                else if(this.playlist[$index].type == 'yt' && this.YTApiKey != '') {
+                //else if(this.playlist[$index].type == 'yt' && this.YTIframe) {
+                else if(this.playlist[$index].type == 'yt') {
                     if(this.YTIframe) {
                         this.YTIframe.loadVideoById({
                             'videoId': this.playlist[$index].url,
@@ -479,12 +486,6 @@ WMPlayer.prototype._Model.prototype = {
         }
         //if current track is a YouTube video
         else if(this.playlist[this.currentTrackIndex].type == 'yt') {
-            if(!self.YTApiKey) {
-                console.log('YouTube API Key not found.');
-                self.canPause = true;
-                self.audioTrackError.notify();
-            }
-             
             if(this.YTReady) {
                 this.YTIframe.playVideo();
                 this.canPause = true;
@@ -650,7 +651,7 @@ WMPlayer.prototype._Model.prototype = {
                     playerVars: {
                         'autoplay': 0,
                         'controls': 0,
-                        'origin': window.location
+                        //'origin': window.location
                     },
                     events: {
                         'onReady': function(e){
@@ -658,6 +659,7 @@ WMPlayer.prototype._Model.prototype = {
                             e.target.setVolume(self.volume*100);
                             if(self.mute)
                                 e.target.mute();
+
                             if(self.YTQuene) {
                                 switch(self.YTQuene) {
                                     case 'play':
