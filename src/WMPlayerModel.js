@@ -490,6 +490,13 @@ WMPlayer.prototype._Model.prototype = {
                 this.YTIframe.playVideo();
                 this.canPause = true;
                 this.audioTrackPlaying.notify();
+
+                if(this.playlist[this.currentTrackIndex].duration == 'N/A') {
+                    this.playlist[this.currentTrackIndex].duration = this.YTIframe.getDuration();
+                    self.playlist[this.currentTrackIndex].status = 'ready';
+                    this.durationChanged.notify();
+                    this.currentTrackChanged.notify();
+                }
             }
             else
                 this.YTQuene = 'play';
