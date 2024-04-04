@@ -221,7 +221,6 @@ WMPlayer.prototype._Model.prototype = {
         //if track is YouTube video
         else if(self.playlist[index].type == 'yt' && ($duration === 'N/A' || $title === 'N/A' || !$title)) {
             if(!self.YTApiKey) {
-                self.playlist[index].status = 'error';
                 console.log('YouTube API Key not found.');
 
                 if(self.currentTrackIndex === null)
