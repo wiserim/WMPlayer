@@ -4,7 +4,7 @@
 * removed default YouTube API key
 * `WMPlayer.addTrack` method now accepts duration argument
 * YouTube tracks can now fetch title by YouTube Data API (if API key is provided)
-* Optimized YouTube Data API query
+* optimized YouTube Data API query
 * if YouTube track has not set track duration it'll be set on play
 * not having set YouTube API key doesn't set Youtube tracks status to 'error' anymore
 
