@@ -89,6 +89,7 @@ $('#player').WMPlayer({
 |theme|string|'default'|Sets player's theme class. See [Custom templates](#custom-templates) for more informations.|
 |template|string/node/JQuery selector|Default template|Sets player's template. See [Custom templates](#custom-templates) for more informations.|
 |playlistPattern|string|Default pattern|Sets playlist pattern. See [Custom templates](#custom-templates) for more informations.|
+|playlistDoubleClickSelect|boolean|false|Sets if playlist items should be selected by single or double click.|
 |controls|object|false|Sets classes of player's interactive elements. See [Custom templates](#custom-templates) for more informations.|
 |YTApiKey|string|''|YouTube API Key. Required to fetching position's duration|
 |autoplay|boolean|false|Sets autoplay.|

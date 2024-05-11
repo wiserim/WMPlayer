@@ -7,6 +7,7 @@
 * optimized YouTube Data API query
 * if YouTube track has not set track duration it'll be set on play
 * not having set YouTube API key doesn't set Youtube tracks status to 'error' anymore
+* added `playlistDoubleClickSelect` option.
 
 ### Bug fixes
 

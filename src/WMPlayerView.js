@@ -13,12 +13,16 @@ WMPlayer.prototype._View = function($elements) {
     this.template = null;
     this.playlistPattern = '';
     this.playerClass = 'default';
+    this.playlistDoubleClickSelect = false;
     this.container = this.elements.container;
     this.mousedownFlag = false;
     this.showPlaylist = true;
     this.dragged = false;
     this.mouseOnVolumeBar = false;
     this.mouseOnProgressBar = false;
+
+    //config arguments
+    if (this.elements.playlistDoubleClickSelect !== undefined) this.playlistDoubleClickSelect = this.elements.playlistDoubleClickSelect;
     
     
     //view events
@@ -29,6 +33,7 @@ WMPlayer.prototype._View = function($elements) {
     this.progressBarClicked = new Event(this);
     this.volumeBarClicked = new Event(this);
     this.muteButtonClicked = new Event(this);
+    this.playlistElementClicked = new Event(this);
     this.playlistElementDoubleClicked = new Event(this);
     this.templateModified = new Event(this);
     this.playlistPatternModified = new Event(this);
@@ -38,6 +43,20 @@ WMPlayer.prototype._View = function($elements) {
     this.container.addEventListener("click", function($e) {
         //get event traget's ancestors
         var targetParents = self.getParentsNodes($e.target, self.elements.container);
+
+        //if playlist double click mode is disabled
+        if(!self.playlistDoubleClickSelect) {
+            //playlist item click
+            var playlistItem = self.isParent(targetParents, 'wmp-playlist-item');
+            if(playlistItem) {
+                var  i= 0;
+                while((playlistItem=playlistItem.previousSibling) !== null)
+                    ++i;
+                self.playlistElementDoubleClicked.notify({
+                    trackId: i
+                });
+            }
+        }
         
         //play button clicked
         if(self.isParent(targetParents, self.elements.playButton))
@@ -92,6 +111,9 @@ WMPlayer.prototype._View = function($elements) {
     
     //double click inside WMPlayer container
     var doubleClick = function($e) {
+        //if playlist double click mode is disabled
+        if(!self.playlistDoubleClickSelect)
+            return;
         //get event traget's ancestors
         var targetParents = self.getParentsNodes($e.target, self.elements.container);
         
