@@ -1,6 +1,6 @@
 /*!
-* WMPlayer v0.8
-* Copyright 2016-2019 Marcin Walczak
+* WMPlayer v1.0.0
+* Copyright 2016-2024 Marcin Walczak
 *This file is part of WMPlayer which is released under MIT license.
 *See LICENSE for full license details.
 */
@@ -75,6 +75,12 @@ function WMPlayer($config) {
         firstScriptTag.parentNode.insertBefore(yt, firstScriptTag);
     }
 
+    var $playlistDoubleClickSelect = false;
+
+    if ($config !== undefined) {
+        if ($config.playlistDoubleClickSelect !== undefined) $playlistDoubleClickSelect = $config.playlistDoubleClickSelect;
+    }
+
     //default config
     this.started = false;
     this.model = new this._Model();
@@ -90,9 +96,10 @@ function WMPlayer($config) {
         currentTrackTime: "wmp-current-track-time",
         currentTrackDuration: "wmp-current-track-duration",
         currentTrackTitle: "wmp-current-track-title",
-        container: this.container
+        container: this.container,
+        playlistDoubleClickSelect: $playlistDoubleClickSelect
     });
-    this.view.setTemplate('<div class="wmp-panel"><div class="wmp-current-track"><span class="wmp-current-track-title"></span><span class="wmp-timer"><span class="wmp-current-track-time">0:00</span><span class="wmp-current-track-duration">N/A</span></span></div><div class="wmp-controls"><div class="wmp-play wmp-button"><svg class="wmp-button-play" width="18" height="18"><polygon class="wmp-symbol-play" points="2,2 16,9 2,16"/><g class="wmp-symbol-pause"><rect x="2" y="2" width="4" height="14" /><rect x="11" y="2" width="4" height="14" /><rect x="2" y="2" width="14" height="14" fill="transparent" stroke="transparent"/></g></svg></div><div class="wmp-stop wmp-button"><svg class="wmp-button-stop" width="18" height="18"><rect class="wmp-symbol-stop" x="2" y="2" width="14" height="14"/></svg></div><div class="wmp-rewind wmp-button"><svg class="wmp-button-rewind" width="18" height="18"><polygon class="wmp-symbol-rewind" points="2,9 9,2 9,9 16,2 16,16 9,9 9,16"/></svg></div><div class="wmp-fast-forward wmp-button"><svg class="wmp-button-fast-forward" width="18" height="18"><polygon class="wmp-symbol-fast-forward" points="2,2 9,9 9,2 16,9 9,16 9,8 2,16"/></svg></div></div><div class="wmp-volume-bar-container"><div class="wmp-button wmp-mute"><svg width="18" height="18"><g class="wmp-button-volume"><polygon points="2,6 5,6 10,2 10,16 5,12 2,12 " /><g class="wmp-symbol-muted"><path d="M12,4 Q18,9 12,14" fill="transparent" /><path d="M12,7 Q14,9 12,11" fill="transparent" /></g></g></svg></div><div class="wmp-volume-bar"></div></div><div class="wmp-progress-bar-container"><div class="wmp-progress-bar"></div></div></div><div class="wmp-playlist-container"><div class="wmp-playlist"></div><div class="wmp-footer">Powered by: <a href="https://github.com/wiserim/WMPlayer" target="_blank" rel="noopener noreferer">WMPlayer</a></div></div>');
+    this.view.setTemplate('<div class="wmp-panel"><div class="wmp-current-track"><span class="wmp-current-track-title"></span><span class="wmp-timer"><span class="wmp-current-track-time">0:00</span><span class="wmp-current-track-duration">N/A</span></span></div><div class="wmp-controls"><div class="wmp-play wmp-button"><svg class="wmp-button-play" width="18" height="18"><polygon class="wmp-symbol-play" points="2,2 16,9 2,16"/><g class="wmp-symbol-pause"><rect x="2" y="2" width="4" height="14" /><rect x="11" y="2" width="4" height="14" /><rect x="2" y="2" width="14" height="14" fill="transparent" stroke="transparent"/></g></svg></div><div class="wmp-stop wmp-button"><svg class="wmp-button-stop" width="18" height="18"><rect class="wmp-symbol-stop" x="2" y="2" width="14" height="14"/></svg></div><div class="wmp-rewind wmp-button"><svg class="wmp-button-rewind" width="18" height="18"><polygon class="wmp-symbol-rewind" points="2,9 9,2 9,9 16,2 16,16 9,9 9,16"/></svg></div><div class="wmp-fast-forward wmp-button"><svg class="wmp-button-fast-forward" width="18" height="18"><polygon class="wmp-symbol-fast-forward" points="2,2 9,9 9,2 16,9 9,16 9,8 2,16"/></svg></div></div><div class="wmp-volume-bar-container"><div class="wmp-button wmp-mute"><svg width="18" height="18"><g class="wmp-button-volume"><polygon points="2,6 5,6 10,2 10,16 5,12 2,12 " /><g class="wmp-symbol-muted"><path d="M12,4 Q18,9 12,14" fill="transparent" /><path d="M12,7 Q14,9 12,11" fill="transparent" /></g></g></svg></div><div class="wmp-volume-bar"></div></div><div class="wmp-progress-bar-container"><div class="wmp-progress-bar"></div></div></div><div class="wmp-playlist-container"><div class="wmp-playlist"></div><div class="wmp-footer">Powered by: <a href="https://wiserim.github.io/WMPlayer" target="_blank" rel="noopener noreferrer">WMPlayer</a></div></div>');
     this.view.setPlaylistPattern('<div class="$status"><span>$index.</span><span>$title</span><span>$duration</span></div>');
     
     //config arguments
@@ -113,7 +120,7 @@ function WMPlayer($config) {
             if ($config.YTApiKey !== undefined) this.model.setYTApiKey($config.YTApiKey);
             if ($config.playlist !== undefined) {
                 $config.playlist.forEach(function($audioTrack) {
-                    self.addTrack($audioTrack.url, $audioTrack.title);
+                    self.addTrack($audioTrack.url, $audioTrack.title, $audioTrack.duration);
                 });
             }
             if ($config.showPlaylist !== undefined) this.showPlaylist($config.showPlaylist);
@@ -184,7 +191,7 @@ function WMPlayer($config) {
     //audio track end
     this.model.audioTrackEnded.attach(function() {
         var playlistEnded = self.model.nextTrack();
-        if (playlistEnded && !self.playlistLoop) self.model.stop(); else self.model.play();
+        if (playlistEnded && !self.loop) self.model.stop(); else self.model.play();
     });
 
     //current track time/duration change
@@ -290,9 +297,10 @@ function WMPlayer($config) {
 
 WMPlayer.prototype = {
     //add new audio track
-    addTrack: function($url, $title) {
+    addTrack: function($url, $title, $duration) {
         if ($title === undefined) $title = "N/A";
-        this.model.addAudioTrack($url, $title);
+        if ($duration === undefined) $duration = "N/A";
+        this.model.addAudioTrack($url, $title, $duration);
         return this;
     },
 
@@ -448,7 +456,11 @@ WMPlayer.prototype = {
             if (mute) this.view.addContainerClass("muted");
             this.view.setCurrentTrackData(currentTrackTitle, currentTrackDuration);
             this.view.renderPlaylist(playlist, currentTrackIndex);
-            if (autoplay) this.model.play(); else this.view.addContainerClass("paused");
+            if (autoplay) {
+                this.model.play();
+            } else {
+                this.view.addContainerClass("paused");
+            }
         }
 
         return this;
@@ -478,7 +490,7 @@ WMPlayer.prototype._Model = function() {
     var self = this;
     var Event = WMPlayer.prototype._Event;
     this.audio = new Audio();
-    this.YTApiKey = 'AIzaSyDerqq5DmHBdfBWMHkaWwjvj4MbtYAD7-A';
+    this.YTApiKey = '';
     this.YTIframeId = '';
     this.YTIframe = false;
     this.playlist = [];
@@ -607,9 +619,12 @@ WMPlayer.prototype._Model.prototype = {
     },
     
     //add audio track
-    addAudioTrack: function($url, $title) {
+    addAudioTrack: function($url, $title, $duration) {
         if($title === undefined)
             $title = 'N/A';
+
+        if($duration === undefined)
+            $duration = 'N/A';
 
         var status = 'ready';
         var type = 'audio';
@@ -619,11 +634,39 @@ WMPlayer.prototype._Model.prototype = {
             type = 'yt';
             status = 'ready';
         }
+
+        //if duration is passed
+        if($duration !== 'N/A') {
+            //if it's integer
+            if(typeof $duration === 'number' && isFinite($duration) && Math.floor($duration) === $duration) {
+                //do nothing
+            }
+            //if it's time format: hh:mm:ss
+            else if(/^[0-9:]+$/.test($duration)) {
+                var hms = $duration.split(':');
+                
+                if(hms.length === 3) {
+                    $duration = (+hms[0]) * 60 * 60 + (+hms[1]) * 60 + (+hms[2]);
+                }
+                else if(hms.length === 2) {
+                    $duration = (+hms[0]) * 60 + (+hms[1]);
+                }
+                else if(hms.length === 1) {
+                    $duration = (+hms[0]);
+                }
+                else {
+                    $duration = 'N/A';
+                }
+            }
+            else {
+                $duration = 'N/A';
+            }
+        }
         
         this.playlist.push({
             title: $title,
             url: $url,
-            duration: 'N/A',
+            duration: $duration,
             type: type,
             status: status
         });
@@ -633,7 +676,7 @@ WMPlayer.prototype._Model.prototype = {
         var index = this.playlist.length - 1;
         //get track metadata
         //if track is audio file
-        if(type == 'audio') {
+        if(type == 'audio' && $duration === 'N/A') {
             var audio = new Audio();
             //after loading audio track metadata, get track duration
             audio.onloadedmetadata = function($e) {
@@ -656,9 +699,8 @@ WMPlayer.prototype._Model.prototype = {
             audio.load();
         }
         //if track is YouTube video
-        else if(self.playlist[index].type == 'yt') {
+        else if(self.playlist[index].type == 'yt' && ($duration === 'N/A' || $title === 'N/A' || !$title)) {
             if(!self.YTApiKey) {
-                self.playlist[index].status = 'error';
                 console.log('YouTube API Key not found.');
 
                 if(self.currentTrackIndex === null)
@@ -666,7 +708,7 @@ WMPlayer.prototype._Model.prototype = {
                 return;
             }
             
-            var url = 'https://www.googleapis.com/youtube/v3/videos?key='+self.YTApiKey+'&part=contentDetails&id='+self.playlist[index].url;
+            var url = 'https://www.googleapis.com/youtube/v3/videos?key='+self.YTApiKey+'&part=snippet,contentDetails&fields=kind,pageInfo,items(id,snippet(title),contentDetails(duration))&id='+self.playlist[index].url;
             var xhr = new XMLHttpRequest();
             // XHR for Chrome/Firefox/Opera/Safari.
             if('withCredentials' in xhr) {
@@ -699,10 +741,17 @@ WMPlayer.prototype._Model.prototype = {
 
                             for(size = self.playlist.length; i < size; i++)
                             {
-                                if(item.id.indexOf(self.playlist[i].url) >= 0 && self.playlist[i].duration == 'N/A'){
-                                    duration = self.convertYTDuration(item.contentDetails.duration);
-                                    if(duration)
-                                        self.playlist[i].duration = duration;
+                                if(item.id.indexOf(self.playlist[i].url) >= 0) {
+                                    if(self.playlist[i].duration == 'N/A'){
+                                        duration = self.convertYTDuration(item.contentDetails.duration);
+                                        if(duration)
+                                            self.playlist[i].duration = duration;
+                                    }
+
+                                    if(self.playlist[i].title == 'N/A' || !self.playlist[i].title) {
+                                        self.playlist[i].title = item.snippet.title;
+                                    }
+
                                     self.audioTrackAdded.notify();
                                 }
                             }
@@ -764,7 +813,6 @@ WMPlayer.prototype._Model.prototype = {
         }
 
         if(this.playlist.length > $index && 0 <= $index) {
-
             if(this.canPause){
                 //if current track is audio file
                 if(this.playlist[$index].type == 'audio') {
@@ -772,7 +820,8 @@ WMPlayer.prototype._Model.prototype = {
                     this.audio.load();
                 }
                 //if current track is a YouTube video
-                else if(this.playlist[$index].type == 'yt' && this.YTApiKey != '') {
+                //else if(this.playlist[$index].type == 'yt' && this.YTIframe) {
+                else if(this.playlist[$index].type == 'yt') {
                     if(this.YTIframe) {
                         this.YTIframe.loadVideoById({
                             'videoId': this.playlist[$index].url,
@@ -916,16 +965,17 @@ WMPlayer.prototype._Model.prototype = {
         }
         //if current track is a YouTube video
         else if(this.playlist[this.currentTrackIndex].type == 'yt') {
-            if(!self.YTApiKey) {
-                console.log('YouTube API Key not found.');
-                self.canPause = true;
-                self.audioTrackError.notify();
-            }
-             
             if(this.YTReady) {
                 this.YTIframe.playVideo();
                 this.canPause = true;
                 this.audioTrackPlaying.notify();
+
+                if(this.playlist[this.currentTrackIndex].duration == 'N/A') {
+                    this.playlist[this.currentTrackIndex].duration = this.YTIframe.getDuration();
+                    self.playlist[this.currentTrackIndex].status = 'ready';
+                    this.durationChanged.notify();
+                    this.currentTrackChanged.notify();
+                }
             }
             else
                 this.YTQuene = 'play';
@@ -1087,7 +1137,7 @@ WMPlayer.prototype._Model.prototype = {
                     playerVars: {
                         'autoplay': 0,
                         'controls': 0,
-                        'origin': window.location
+                        //'origin': window.location
                     },
                     events: {
                         'onReady': function(e){
@@ -1095,6 +1145,7 @@ WMPlayer.prototype._Model.prototype = {
                             e.target.setVolume(self.volume*100);
                             if(self.mute)
                                 e.target.mute();
+
                             if(self.YTQuene) {
                                 switch(self.YTQuene) {
                                     case 'play':
@@ -1134,12 +1185,16 @@ WMPlayer.prototype._View = function($elements) {
     this.template = null;
     this.playlistPattern = '';
     this.playerClass = 'default';
+    this.playlistDoubleClickSelect = false;
     this.container = this.elements.container;
     this.mousedownFlag = false;
     this.showPlaylist = true;
     this.dragged = false;
     this.mouseOnVolumeBar = false;
     this.mouseOnProgressBar = false;
+
+    //config arguments
+    if (this.elements.playlistDoubleClickSelect !== undefined) this.playlistDoubleClickSelect = this.elements.playlistDoubleClickSelect;
     
     
     //view events
@@ -1150,6 +1205,7 @@ WMPlayer.prototype._View = function($elements) {
     this.progressBarClicked = new Event(this);
     this.volumeBarClicked = new Event(this);
     this.muteButtonClicked = new Event(this);
+    this.playlistElementClicked = new Event(this);
     this.playlistElementDoubleClicked = new Event(this);
     this.templateModified = new Event(this);
     this.playlistPatternModified = new Event(this);
@@ -1159,6 +1215,20 @@ WMPlayer.prototype._View = function($elements) {
     this.container.addEventListener("click", function($e) {
         //get event traget's ancestors
         var targetParents = self.getParentsNodes($e.target, self.elements.container);
+
+        //if playlist double click mode is disabled
+        if(!self.playlistDoubleClickSelect) {
+            //playlist item click
+            var playlistItem = self.isParent(targetParents, 'wmp-playlist-item');
+            if(playlistItem) {
+                var  i= 0;
+                while((playlistItem=playlistItem.previousSibling) !== null)
+                    ++i;
+                self.playlistElementDoubleClicked.notify({
+                    trackId: i
+                });
+            }
+        }
         
         //play button clicked
         if(self.isParent(targetParents, self.elements.playButton))
@@ -1213,6 +1283,9 @@ WMPlayer.prototype._View = function($elements) {
     
     //double click inside WMPlayer container
     var doubleClick = function($e) {
+        //if playlist double click mode is disabled
+        if(!self.playlistDoubleClickSelect)
+            return;
         //get event traget's ancestors
         var targetParents = self.getParentsNodes($e.target, self.elements.container);
         
