@@ -1,4 +1,4 @@
-## Version 1.0.0 - 2024.006.19
+## Version 1.0.0 - 2024.06.19
 
 ### Updates
 * removed default YouTube API key
