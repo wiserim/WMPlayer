@@ -68,12 +68,14 @@ function WMPlayer($config) {
     mediaContainer.setAttribute("style", "width: 0; height: 0; overflow: hidden; opacity: 0;");
 
     //load You Tube iframe api
+    /*
     if (document.querySelectorAll('script[src="https://www.youtube.com/iframe_api"]').length == 0) {
         var yt = document.createElement("script");
         yt.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName("script")[0];
         firstScriptTag.parentNode.insertBefore(yt, firstScriptTag);
     }
+    */
 
     var $playlistDoubleClickSelect = false;
 
@@ -118,6 +120,15 @@ function WMPlayer($config) {
             if ($config.volume !== undefined) this.volume($config.volume);
             if ($config.mute !== undefined) this.mute($config.mute);
             if ($config.YTApiKey !== undefined) this.model.setYTApiKey($config.YTApiKey);
+            if ($config.YTAutoload !== undefined && $config.YTAutoload) {
+                //add YT Iframe API
+                if (document.querySelectorAll('script[src="https://www.youtube.com/iframe_api"]').length == 0) {
+                    var yt = document.createElement("script");
+                    yt.src = "https://www.youtube.com/iframe_api";
+                    var firstScriptTag = document.getElementsByTagName("script")[0];
+                    firstScriptTag.parentNode.insertBefore(yt, firstScriptTag);
+                }
+            }
             if ($config.playlist !== undefined) {
                 $config.playlist.forEach(function($audioTrack) {
                     self.addTrack($audioTrack.url, $audioTrack.title, $audioTrack.duration);
@@ -469,7 +480,7 @@ WMPlayer.prototype = {
 
 //WMPlayer event container
 WMPlayer.prototype._Event = function($sender) {
-    this.sender = $sender;          
+    this.sender = $sender;            
     this.listeners = [];
 }
 
@@ -820,7 +831,6 @@ WMPlayer.prototype._Model.prototype = {
                     this.audio.load();
                 }
                 //if current track is a YouTube video
-                //else if(this.playlist[$index].type == 'yt' && this.YTIframe) {
                 else if(this.playlist[$index].type == 'yt') {
                     if(this.YTIframe) {
                         this.YTIframe.loadVideoById({
@@ -1124,6 +1134,14 @@ WMPlayer.prototype._Model.prototype = {
     initYTIframe: function($videoId) {
         if(this.YTIframe)
             return;
+
+        //add YT Iframe API
+        if (document.querySelectorAll('script[src="https://www.youtube.com/iframe_api"]').length == 0) {
+            var yt = document.createElement("script");
+            yt.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName("script")[0];
+            firstScriptTag.parentNode.insertBefore(yt, firstScriptTag);
+        }
 
         var self = this;
         
