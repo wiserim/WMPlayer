@@ -18,17 +18,17 @@ $(document).ready(function(){
 
 		if(val == 'default') {
 			var template = $('#default')[0];
-			player.playerClass('default');
+			player.theme('default');
 		}
 
 		if(val == 'default-dark') {
 			var template = $('#default')[0];
-			player.playerClass('default dark');
+			player.theme('default dark');
 		}
 
 		if(val == 'classic') {
 			var template = $('#classic')[0];
-			player.playerClass('classic');
+			player.theme('classic');
 		}
 
 		player.template(template);
@@ -50,6 +50,12 @@ $(document).ready(function(){
 	$('#setLoop').change(function(){
 		var loop = $(this).is(':checked');
 		player.loop(loop);
+	});
+
+	//pokaż listę odtwarzania
+	$('#setShowPlaylist').change(function(){
+		var showPlaylist = $(this).is(':checked');
+		player.showPlaylist(showPlaylist);
 	});
 
 	//ustawienie głośności
