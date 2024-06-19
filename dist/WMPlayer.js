@@ -202,7 +202,7 @@ function WMPlayer($config) {
     //audio track end
     this.model.audioTrackEnded.attach(function() {
         var playlistEnded = self.model.nextTrack();
-        if (playlistEnded && !self.loop) self.model.stop(); else self.model.play();
+        if (playlistEnded && !self.model.getLoop()) self.model.stop(); else self.model.play();
     });
 
     //current track time/duration change
