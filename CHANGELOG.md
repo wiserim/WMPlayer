@@ -1,4 +1,4 @@
-## Version 1.0.0 - 2024.04.xx
+## Version 1.0.0 - 2024.006.19
 
 ### Updates
 * removed default YouTube API key
@@ -6,8 +6,10 @@
 * YouTube tracks can now fetch title by YouTube Data API (if API key is provided)
 * optimized YouTube Data API query
 * if YouTube track has not set track duration it'll be set on play
-* not having set YouTube API key doesn't set Youtube tracks status to 'error' anymore
+* not having set YouTube API key doesn't set YouTube tracks status to 'error' anymore
 * added `playlistDoubleClickSelect` option.
+* added `YTAutoload` option.
+* YouTube Iframe API is no longer loaded on player creation by default, unless `YTAutoload` is set true.
 
 ### Bug fixes
 
