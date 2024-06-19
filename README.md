@@ -92,6 +92,7 @@ $('#player').WMPlayer({
 |playlistDoubleClickSelect|boolean|false|Sets if playlist items should be selected by single or double click.|
 |controls|object|false|Sets classes of player's interactive elements. See [Custom templates](#custom-templates) for more informations.|
 |YTApiKey|string|''|YouTube API Key. Required to fetching position's duration|
+|YTAutoload|bool|false|Load YouTube IFrame API required to play YouTube track. If set false, it'll be loaded on YouTube track selection.|
 |autoplay|boolean|false|Sets autoplay.|
 |loop|boolean|false|Sets playlist loop.|
 |volume|float [0-1]|1|Sets player's volume.|

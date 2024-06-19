@@ -68,12 +68,14 @@ function WMPlayer($config) {
     mediaContainer.setAttribute("style", "width: 0; height: 0; overflow: hidden; opacity: 0;");
 
     //load You Tube iframe api
+    /*
     if (document.querySelectorAll('script[src="https://www.youtube.com/iframe_api"]').length == 0) {
         var yt = document.createElement("script");
         yt.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName("script")[0];
         firstScriptTag.parentNode.insertBefore(yt, firstScriptTag);
     }
+    */
 
     var $playlistDoubleClickSelect = false;
 
@@ -118,6 +120,15 @@ function WMPlayer($config) {
             if ($config.volume !== undefined) this.volume($config.volume);
             if ($config.mute !== undefined) this.mute($config.mute);
             if ($config.YTApiKey !== undefined) this.model.setYTApiKey($config.YTApiKey);
+            if ($config.YTAutoload !== undefined && $config.YTAutoload) {
+                //add YT Iframe API
+                if (document.querySelectorAll('script[src="https://www.youtube.com/iframe_api"]').length == 0) {
+                    var yt = document.createElement("script");
+                    yt.src = "https://www.youtube.com/iframe_api";
+                    var firstScriptTag = document.getElementsByTagName("script")[0];
+                    firstScriptTag.parentNode.insertBefore(yt, firstScriptTag);
+                }
+            }
             if ($config.playlist !== undefined) {
                 $config.playlist.forEach(function($audioTrack) {
                     self.addTrack($audioTrack.url, $audioTrack.title, $audioTrack.duration);

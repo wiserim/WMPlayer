@@ -340,7 +340,6 @@ WMPlayer.prototype._Model.prototype = {
                     this.audio.load();
                 }
                 //if current track is a YouTube video
-                //else if(this.playlist[$index].type == 'yt' && this.YTIframe) {
                 else if(this.playlist[$index].type == 'yt') {
                     if(this.YTIframe) {
                         this.YTIframe.loadVideoById({
@@ -644,6 +643,14 @@ WMPlayer.prototype._Model.prototype = {
     initYTIframe: function($videoId) {
         if(this.YTIframe)
             return;
+
+        //add YT Iframe API
+        if (document.querySelectorAll('script[src="https://www.youtube.com/iframe_api"]').length == 0) {
+            var yt = document.createElement("script");
+            yt.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName("script")[0];
+            firstScriptTag.parentNode.insertBefore(yt, firstScriptTag);
+        }
 
         var self = this;
         
