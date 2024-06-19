@@ -15,6 +15,7 @@
 
 * YouTube track not starting if YouTube Data API key is not defined
 * plalist loop is not working properly when YouTube track is the last
+* Playlist loop option is not checked properly on audio track end
 
 ---
 
